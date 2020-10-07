@@ -165,10 +165,10 @@ def bfsHash(start, zeroPos,des,step,change_position):
         #print(strk)
 
         if check_list(des,temp):# 若为目标局势则跳出
-            print(des)
-            print(temp)
-            print(tempN.step)
-            print(tempN.operation)
+            #print(des)
+            #print(temp)
+            #print(tempN.step)
+            #print(tempN.operation)
             return tempN
         # print(tempN.step)
         #print(tempN.operation)
@@ -202,10 +202,10 @@ def bfsHash(start, zeroPos,des,step,change_position):
             tempN = node(temp,temp_step,pos,des,operation,swap,1)
 
             if check_list(des, temp):#若交换后刚好为目标局势那就直接返回
-                print(des)
-                print(temp)
-                print(tempN.step)
-                print(tempN.operation)
+                #print(des)
+                #print(temp)
+                #print(tempN.step)
+                #print(tempN.operation)
                 operation.append(' ')# 应测试组要求加上一个字符防止评测判断不到交换这一步
                 tempN = node(temp, temp_step, pos, des, operation, swap, 1)
                 return tempN
@@ -350,6 +350,27 @@ def PostAnswer(post_id,operation,swap):# 提交答案
     res = requests.post(url = url,headers = headers,data =json.dumps(data))
     # 输出提交返回的信息
     print(res.text)
+#用于对付unittest
+def showmap(temp):
+    for i in range(0,len(temp),3):
+        str1 = str(temp[i])+' '+str(temp[i+1])+' '+str(temp[i+2])
+        print(str1)
+def SampleSolve(order,origin,swap,swapStep):
+    # 确定白块位置
+    for k in range(9):
+        if order[k] == 0:
+            break
+    # 开始搜索
+    b = bfsHash(order, k, origin , swapStep, swap)
+    print('跑出来了！')
+    print('初始局势：')
+    showmap(order)
+    print('目标局势：')
+    showmap(origin)
+    print('强制交换步数：', swapStep)
+    print('强制交换位置：', swap)
+    print('操作序列：', b.operation)
+    print('自由交换：', b.swap)
 
 if __name__ == '__main__':
     order,limit_step,change_position,post_id = getProblemImageOrder('031802126')
