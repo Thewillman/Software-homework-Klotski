@@ -4,6 +4,9 @@ import random
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+import copy
+import Astar
+from AIshow import AIshow
 
 
 class Direction(IntEnum):
@@ -50,11 +53,11 @@ class GameWindow2(QMainWindow):
         toolbar1.actionTriggered.connect(self.restart)
         toolbar1.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
-        toolbar2 = self.addToolBar('AI演示')
-        new = QAction(QIcon('python.png'), 'AI演示', self)
-        toolbar2.addAction(new)
-        toolbar2.actionTriggered.connect(self.AIshow)
-        toolbar2.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        # toolbar2 = self.addToolBar('AI演示')
+        # new = QAction(QIcon('python.png'), 'AI演示', self)
+        # toolbar2.addAction(new)
+        # toolbar2.actionTriggered.connect(self.AIshow)
+        # toolbar2.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
     def restart(self):
         self.blocks = []
@@ -62,9 +65,19 @@ class GameWindow2(QMainWindow):
         self.zero_column = 0
         self.onInit()
 
-
-    def AIshow(self):
-        print('222')
+    # def AIshow(self):
+    #     temp1 = copy.deepcopy(self.blocks)
+    #     temp2 = copy.deepcopy(self.zero_row)
+    #     temp3 = copy.deepcopy(self.zero_column)
+    #     list = []
+    #     for i in range(4):
+    #         for j in range(4):
+    #             list.append(temp1[i][j])
+    #     walklist = Astar.bfsHash(list, temp2, temp3, 4)
+    #     print('walklist:', walklist)
+    #     temp4 = copy.deepcopy(walklist)
+    #     self.ai_show = AIshow(temp1, temp2, temp3, 4, temp4)
+    #     self.ai_show.show()
 
     # 初始化布局
     def onInit(self):

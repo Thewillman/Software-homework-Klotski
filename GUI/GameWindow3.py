@@ -47,11 +47,11 @@ class GameWindow3(QMainWindow):
         toolbar1.actionTriggered.connect(self.restart)
         toolbar1.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
-        toolbar2 = self.addToolBar('AI演示')
-        new = QAction(QIcon('python.png'), 'AI演示', self)
-        toolbar2.addAction(new)
-        toolbar2.actionTriggered.connect(self.AIshow)
-        toolbar2.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        # toolbar2 = self.addToolBar('AI演示')
+        # new = QAction(QIcon('python.png'), 'AI演示', self)
+        # toolbar2.addAction(new)
+        # toolbar2.actionTriggered.connect(self.AIshow)
+        # toolbar2.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
     def restart(self):
         self.blocks = []
@@ -59,9 +59,8 @@ class GameWindow3(QMainWindow):
         self.zero_column = 0
         self.onInit()
 
-
-    def AIshow(self):
-        print('222')
+    # def AIshow(self):
+    #     print('222')
 
     # 初始化布局
     def onInit(self):

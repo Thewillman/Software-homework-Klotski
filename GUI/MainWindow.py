@@ -6,11 +6,11 @@ from TryWindow import TryWindow
 from RankWindow import RankWindow
 from GameWindowChoose import GameWindowChoose
 
+
 class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
-
 
     def initUI(self):
         label = QLabel('<h1 align="center"><font color=black>华容道</font></h1>', self)

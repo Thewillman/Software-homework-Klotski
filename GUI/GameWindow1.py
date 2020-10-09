@@ -5,6 +5,8 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from AIshow import AIshow
+import copy
+import Astar
 
 
 class Direction(IntEnum):
@@ -63,10 +65,25 @@ class GameWindow1(QMainWindow):
         self.zero_column = 0
         self.onInit()
 
-
     def AIshow(self):
-        self.ai_show = AIshow(self.blocks, self.zero_row, self.zero_column, 3)
+        temp1 = copy.deepcopy(self.blocks)
+        temp2 = copy.deepcopy(self.zero_row)
+        temp3 = copy.deepcopy(self.zero_column)
+        list = []
+        for i in range(3):
+            for j in range(3):
+                list.append(temp1[i][j])
+        print(temp1)
+        print(temp2)
+        print(temp3)
+        walklist = Astar.bfsHash(list, temp2, temp3, 3)
+        print('walklist:', walklist)
+        temp4 = copy.deepcopy(walklist)
+        self.ai_show = AIshow(temp1, temp2, temp3, 3, temp4)
         self.ai_show.show()
+        # print(self.blocks)
+        # print(self.zero_row)
+        # print(self.zero_column)
 
     # 初始化布局
     def onInit(self):
@@ -90,6 +107,9 @@ class GameWindow1(QMainWindow):
 
     # 检测按键
     def keyPressEvent(self, event):
+        # print(self.blocks)
+        # print(self.zero_row)
+        # print(self.zero_column)
         key = event.key()
         if (key == Qt.Key_Up or key == Qt.Key_W):
             self.move(Direction.UP)

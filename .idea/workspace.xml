@@ -2,11 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a603cd4-b8a3-4949-a42b-af21a8bcfa3e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AstarFind.py" beforeDir="false" afterPath="$PROJECT_DIR$/AstarFind.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CreateSample.py" beforeDir="false" afterPath="$PROJECT_DIR$/CreateSample.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SampleTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/SampleTest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GUI/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/AIshow.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/AIshow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/GameWindow1.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/GameWindow1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/GameWindow2.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/GameWindow2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/GameWindow3.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/GameWindow3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/GameWindowChoose.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/GameWindowChoose.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/MainWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/RankWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/RankWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/TryWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/TryWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/rank.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/rank.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/start.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +100,7 @@
       <workItem from="1602127709755" duration="45000" />
       <workItem from="1602154053520" duration="4126000" />
       <workItem from="1602169562820" duration="249000" />
+      <workItem from="1602202980902" duration="4000" />
     </task>
     <servers />
   </component>
