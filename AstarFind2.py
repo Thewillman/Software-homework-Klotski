@@ -24,35 +24,53 @@ que = PriorityQueue()
 
 # node类表示当前的局势以及操作序列还有移动步数
 class node(object):
-
     def __init__(self, num, step, zeroPos, des, operation, swap, flag):
         # num指当前局势，cost表示用于A*算法的估价函数值，step指移动步数，des指目标状态，operation指操作序列，swap记录自由交换的位置，flag指是否已经被强制交换
         self.num = num
         self.step = step
         self.zeroPos = zeroPos
         self.des = des
+        self.x1 = [0, 0, 0, 1, 1, 1, 2, 2, 2]
+        self.y1 = [0, 1, 2, 0, 1, 2, 0, 1, 2]
+        self.Init_zeroPos = self.get_zeroPos()
         self.cost = self.setCost()
         self.operation = operation
         self.swap = swap
         self.flag = flag
 
+
     def __lt__(self, other):
         # 重载运算符，优先队列用得到
         return self.cost < other.cost
 
+    def get_zeroPos(self):
+        for i in range(9):
+            if self.des[i] == 0:
+                return i
+
     def setCost(self):  # A*算法要用到的估价函数
         c = 0
         for i in range(9):
-            if self.num[i] != self.des[i]:
-                c = c + 1
+            if self.num[i] != 0:
+                c += abs(int(i / 3) - self.x1[self.num[i]-1]) + abs(int(i%3) - self.y1[self.num[i]-1])
+            else:
+                c += abs(int(i / 3) - int(self.Init_zeroPos/3)) + abs(int(i%3) - self.Init_zeroPos%3)
         return c + self.step
 
 
 def CostCount(num, des, step):  # 估价函数
     c = 0
+    x = [0, 0, 0, 1, 1, 1, 2, 2, 2]
+    y = [0, 1, 2, 0, 1, 2, 0, 1, 2]
+    k = 0
+    for k in range(9):
+        if des[k] == 0:
+            break
     for i in range(9):
-        if num[i] != des[i]:
-            c = c + 1
+        if num[i] != 0:
+            c += abs(int(i / 3) - x[num[i]-1]) + abs(int(i % 3) - y[num[i]-1])
+        else:
+            c += abs(int(i / 3) - int(k / 3)) + abs(int(i % 3) - int(k % 3))
     return c + step
 
 
@@ -111,9 +129,11 @@ def getRightChange(order, des, step):  # 获得到保证交换后局势有解且
     pos1 = 0
     pos2 = 0
     for i in range(0, len(order)):
-        for j in range(i + 1, len(order)):
+        for j in range(i+1, len(order)):
             order[i], order[j] = order[j], order[i]
+            #print(order)
             tempCost = CostCount(order, des, step)
+            #print(tempCost)
             if tempCost < cost and check(order, des):
                 cost = tempCost
                 pos1 = i

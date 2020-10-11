@@ -3,7 +3,7 @@
 from queue import PriorityQueue
 import random
 import AstarFind as answer
-
+import AstarFind2 as answer2
 changeId = [
     [-1, -1, 3, 1],
     [-1, 0, 4, 2],
@@ -19,6 +19,48 @@ reverse = {'w': 's', 's': 'w', 'a': 'd', 'd': 'a'}
 change = {'w': 0, 'a': 1, 's': 2, 'd': 3}
 dir = ['w', 'a', 's', 'd']
 
+# 用于对付unittest
+def showmap(temp):
+    for i in range(0, len(temp), 3):
+        str1 = str(temp[i]) + ' ' + str(temp[i + 1]) + ' ' + str(temp[i + 2])
+        print(str1)
+
+
+def SampleSolve(order, origin, swap, swapStep):
+    # 确定白块位置
+    for k in range(9):
+        if order[k] == 0:
+            break
+    # 开始搜索
+    b = answer.bfsHash(order, k, origin, swapStep, swap)
+    print('跑出来了！')
+    print('初始局势：')
+    showmap(order)
+    print('目标局势：')
+    showmap(origin)
+    print('强制交换步数：', swapStep)
+    print('强制交换位置：', swap)
+    print('操作序列：', b.operation)
+    print('自由交换：', b.swap)
+    return b.operation
+
+def SampleSolve2(order, origin, swap, swapStep):
+    # 确定白块位置
+    for k in range(9):
+        if order[k] == 0:
+            break
+    # 开始搜索
+    b = answer2.bfsHash(order, k, origin, swapStep, swap)
+    print('跑出来了！')
+    print('初始局势：')
+    showmap(order)
+    print('目标局势：')
+    showmap(origin)
+    print('强制交换步数：', swapStep)
+    print('强制交换位置：', swap)
+    print('操作序列：', b.operation)
+    print('自由交换：', b.swap)
+    return b.operation
 
 def NormalRun(start, zeroPos, des):  # 解决非交换位置的八数码问题
     first = answer.node(start, 0, zeroPos, des, [], [], 0)

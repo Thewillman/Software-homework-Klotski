@@ -42,15 +42,17 @@ class MainWindow(QWidget):
         self.setWindowTitle('华容道')
 
     def callGame(self):
-        self.game_window_choose = GameWindowChoose()
+        self.game_window_choose = GameWindowChoose(self)
         self.game_window_choose.show()
 
     def callRank(self):
         self.rank_window = RankWindow()
+        self.hide()
         self.rank_window.show()
 
     def callTry(self):
         self.try_window = TryWindow()
+        self.hide()
         self.try_window.show()
 
     def callQuit(self):

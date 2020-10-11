@@ -2,9 +2,9 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+import MainWindow
 
-
-class RankWindow(QWidget):
+class RankWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('往次得分')
@@ -12,6 +12,7 @@ class RankWindow(QWidget):
         self.resize(528, 530)
         self.setFixedSize(528, 530)
         self.initUI()
+
 
     def initUI(self):
         layout = QHBoxLayout()
@@ -45,4 +46,19 @@ class RankWindow(QWidget):
         tablewidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
         # 整行选择
         tablewidget.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.setLayout(layout)
+        toolbar3 = self.addToolBar('返回')
+        new = QAction(QIcon('python.png'), '返回', self)
+        toolbar3.addAction(new)
+        toolbar3.actionTriggered.connect(self.back)
+        toolbar3.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        # self.widght = QWidget()
+        # self.widght.setLayout(layout)
+        # self.setLayout(layout)
+        mainframe = QWidget()
+        mainframe.setLayout(layout)
+        self.setCentralWidget(mainframe)
+
+    def back(self):
+        self.hide()
+        self.f = MainWindow.MainWindow()
+        self.f.show()

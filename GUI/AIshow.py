@@ -17,8 +17,9 @@ class Direction(IntEnum):
 
 class AIshow(QMainWindow):
     # 二维序列，0的行，0的列，几阶
-    def __init__(self, blocks, zero_row, zero_column, degree, walklist):
+    def __init__(self, label, blocks, zero_row, zero_column, degree, walklist,Window):
         super().__init__()
+        self.parent_label = label
         self.initblocks = copy.deepcopy(blocks)
         self.initzerorow = copy.deepcopy(zero_row)
         self.initzerocolumn = copy.deepcopy(zero_column)
@@ -35,6 +36,7 @@ class AIshow(QMainWindow):
         self.gltMain = QGridLayout()
         self.walk_list = walklist
         self.walk_now = 0
+        self.Window = Window
         self.initUI()
 
     def initUI(self):
@@ -164,7 +166,15 @@ class AIshow(QMainWindow):
                 # 值是否对应
                 elif self.block[row][column] != row * self.degree + column + 1:
                     return False
-
+    def closeEvent(self, event):
+        reply = QMessageBox.question(self, 'AI演示', '确定要离开AI演示吗？', QMessageBox.Yes | QMessageBox.No,
+                                     QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            self.parent_label.flag = 0
+            self.Window.setVisible(1)
+            event.accept()
+        else:
+            event.ignore()
 
 class Block(QLabel):
     """ 数字方块 """
