@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="97218120-7509-4720-b7fd-5ce752daae38" name="Default Changelist" comment="">
+    <list default="true" id="c19e6cd3-d09c-453b-8a7f-74b957b284dc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/GUI.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AIshow.py" beforeDir="false" afterPath="$PROJECT_DIR$/AIshow.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Astar.py" beforeDir="false" afterPath="$PROJECT_DIR$/Astar.py" afterDir="false" />
@@ -14,9 +18,10 @@
       <change beforePath="$PROJECT_DIR$/RankWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/RankWindow.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TryWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/TryWindow.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/order.txt" beforeDir="false" afterPath="$PROJECT_DIR$/order.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/rank.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rank.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/start.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SampleTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/../SampleTest.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +32,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="JupyterTrust" id="133103fa-6206-4e1a-931e-18a38872cf33" />
-  <component name="ProjectId" id="1iPx51Ym9JtU7LC8bRU2yrgiDK4" />
+  <component name="ProjectId" id="1imPSTvJ1p0xOdbQmECCHL1p7xQ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -35,13 +40,13 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration name="start" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="GUI" />
+      <module name="pyqt5-huarongdao-final" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -69,24 +74,21 @@
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="97218120-7509-4720-b7fd-5ce752daae38" name="Default Changelist" comment="" />
-      <created>1601822841809</created>
+      <changelist id="c19e6cd3-d09c-453b-8a7f-74b957b284dc" name="Default Changelist" comment="" />
+      <created>1602509794013</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1601822841809</updated>
-      <workItem from="1601822843110" duration="30000" />
-      <workItem from="1602170406632" duration="326000" />
-      <workItem from="1602202476466" duration="488000" />
-      <workItem from="1602233600337" duration="77000" />
-      <workItem from="1602257594338" duration="3020000" />
-      <workItem from="1602260682653" duration="276000" />
-      <workItem from="1602296375772" duration="5105000" />
-      <workItem from="1602323904873" duration="880000" />
-      <workItem from="1602326062761" duration="1652000" />
-      <workItem from="1602344643835" duration="1135000" />
-      <workItem from="1602377204567" duration="4149000" />
+      <updated>1602509794013</updated>
+      <workItem from="1602509807809" duration="511000" />
+      <workItem from="1602510328090" duration="477000" />
+      <workItem from="1602511629103" duration="40000" />
+      <workItem from="1602511688670" duration="74000" />
+      <workItem from="1602511802928" duration="7000" />
     </task>
     <servers />
   </component>
@@ -94,51 +96,29 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom" timestamp="1602382039893">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1602509985553">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1602382039893" />
-    <state width="1493" height="261" key="GridCell.Tab.0.center" timestamp="1602382039893">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1602509985553" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1602511809019">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1602382039893" />
-    <state width="1493" height="261" key="GridCell.Tab.0.left" timestamp="1602382039893">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1602511809019" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1602511809019">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1602382039893" />
-    <state width="1493" height="261" key="GridCell.Tab.0.right" timestamp="1602382039893">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1602511809019" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1602511809019">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1602382039893" />
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1602382039893">
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1602511809019" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1602511809019">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1602382039893" />
-    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1602382039893">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1602382039893" />
-    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1602382039893">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1602382039893" />
-    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1602382039893">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1602382039893" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <default-breakpoints>
-        <breakpoint type="python-exception">
-          <properties notifyOnTerminate="true" exception="BaseException">
-            <option name="notifyOnTerminate" value="true" />
-          </properties>
-        </breakpoint>
-      </default-breakpoints>
-    </breakpoint-manager>
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1602511809019" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/GUI$start.coverage" NAME="start Coverage Results" MODIFIED="1602381618766" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/pyqt5_huarongdao_final$start.coverage" NAME="start Coverage Results" MODIFIED="1602511694414" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GUI$start.coverage" NAME="start Coverage Results" MODIFIED="1602511804433" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

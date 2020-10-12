@@ -4,7 +4,7 @@ import AstarFind as answer
 from BeautifulReport import BeautifulReport
 
 
-class NoSwapError(Exception):  # 文本不同相似度却100%
+class NoSwapError(Exception):
 
     def __init__(self):
         print("这是没强制交换前就能有解的样例欸！")
@@ -13,7 +13,7 @@ class NoSwapError(Exception):  # 文本不同相似度却100%
         return "再检查一下代码哦"
 
 
-class SameMapError(Exception):  # 文本一致相似度不是100%
+class SameMapError(Exception):
 
     def __init__(self):
         print("一样的图，为什么还要移动呢？")
@@ -22,7 +22,7 @@ class SameMapError(Exception):  # 文本一致相似度不是100%
         return "再检查一下代码哦"
 
 
-class SwapError(Exception):  # 比对文本压根没有汉字，相似度直接判0
+class SwapError(Exception):
 
     def __init__(self):
         print("怎么没交换就出解了？")

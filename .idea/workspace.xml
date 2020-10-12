@@ -3,22 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4a603cd4-b8a3-4949-a42b-af21a8bcfa3e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AstarFind.py" beforeDir="false" afterPath="$PROJECT_DIR$/AstarFind.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CreateSample.py" beforeDir="false" afterPath="$PROJECT_DIR$/CreateSample.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/AIshow.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/AIshow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/Astar.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/Astar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/GameWindow1.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/GameWindow1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/GameWindow2.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/GameWindow2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/GameWindow3.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/GameWindow3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/GameWindowChoose.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/GameWindowChoose.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/MainWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/RankWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/RankWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/TryWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/TryWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/order.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/order.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/rank.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/rank.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/start.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SampleTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/SampleTest.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -189,6 +173,7 @@
       <workItem from="1602397176425" duration="929000" />
       <workItem from="1602398297295" duration="6484000" />
       <workItem from="1602429495567" duration="4203000" />
+      <workItem from="1602463194204" duration="3974000" />
     </task>
     <servers />
   </component>
@@ -196,22 +181,22 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom" timestamp="1602433705644">
+    <state width="1493" height="242" key="GridCell.Tab.0.bottom" timestamp="1602480320077">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1602433705644" />
-    <state width="1493" height="261" key="GridCell.Tab.0.center" timestamp="1602433705644">
+    <state width="1493" height="242" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1602480320077" />
+    <state width="1493" height="242" key="GridCell.Tab.0.center" timestamp="1602480320077">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1602433705644" />
-    <state width="1493" height="261" key="GridCell.Tab.0.left" timestamp="1602433705644">
+    <state width="1493" height="242" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1602480320077" />
+    <state width="1493" height="242" key="GridCell.Tab.0.left" timestamp="1602480320077">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1602433705644" />
-    <state width="1493" height="261" key="GridCell.Tab.0.right" timestamp="1602433705644">
+    <state width="1493" height="242" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1602480320077" />
+    <state width="1493" height="242" key="GridCell.Tab.0.right" timestamp="1602480320077">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1602433705644" />
+    <state width="1493" height="242" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1602480320077" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1602433705644">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -234,7 +219,7 @@
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1602431487245" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Klotski$SampleTest.coverage" NAME="SampleTest Coverage Results" MODIFIED="1602433614342" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Klotski$SampleTest.coverage" NAME="SampleTest Coverage Results" MODIFIED="1602464269643" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Klotski$start.coverage" NAME="start Coverage Results" MODIFIED="1602432386182" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI" />
     <SUITE FILE_PATH="coverage/Klotski$AstarFind.coverage" NAME="AstarFind Coverage Results" MODIFIED="1602398403860" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Klotski$Astar_find.coverage" NAME="Astar-find Coverage Results" MODIFIED="1601822991734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

@@ -5,14 +5,14 @@ from PyQt5.QtWidgets import *
 import MainWindow
 
 
-class RankWindow(QMainWindow):
+class RankWindow2(QMainWindow):
     def __init__(self):
         super().__init__()
         palette = QPalette()
         palette.setBrush(QPalette.Background, QBrush(QPixmap('bg.JPG')))
         self.setPalette(palette)
 
-        self.setWindowTitle('往次得分')
+        self.setWindowTitle('AI排行')
         self.setWindowModality(Qt.ApplicationModal)
         self.resize(528, 530)
         self.setFixedSize(528, 530)
@@ -24,9 +24,9 @@ class RankWindow(QMainWindow):
         tablewidget.setRowCount(10)
         tablewidget.setColumnCount(4)
         layout.addWidget(tablewidget)
-        tablewidget.setHorizontalHeaderLabels(['排名', '记录日期', '通关数', '总时间(s)'])
+        tablewidget.setHorizontalHeaderLabels(['排名', '记录日期', '总时间(s)', '与AI相差步数'])
         tablewidget.verticalHeader().setVisible(False)
-        file = open('rank.txt')
+        file = open('airank.txt')
         rank = []
         while True:
             line = file.readline()

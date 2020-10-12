@@ -1,4 +1,5 @@
 import sys
+from PyQt5 import QtWidgets
 from enum import IntEnum
 import random
 from PyQt5.QtCore import *
@@ -6,7 +7,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import copy
 import Astar
-
+# import TryWindow
 
 class Direction(IntEnum):
     UP = 0
@@ -15,11 +16,15 @@ class Direction(IntEnum):
     RIGHT = 3
 
 
+
 class AIshow(QMainWindow):
     # 二维序列，0的行，0的列，几阶
-    def __init__(self, label, blocks, zero_row, zero_column, degree, walklist,Window):
+    def __init__(self, blocks, zero_row, zero_column, degree, walklist):
         super().__init__()
-        self.parent_label = label
+        palette = QPalette()
+        palette.setBrush(QPalette.Background, QBrush(QPixmap('bg.JPG')))
+        self.setPalette(palette)
+
         self.initblocks = copy.deepcopy(blocks)
         self.initzerorow = copy.deepcopy(zero_row)
         self.initzerocolumn = copy.deepcopy(zero_column)
@@ -36,7 +41,6 @@ class AIshow(QMainWindow):
         self.gltMain = QGridLayout()
         self.walk_list = walklist
         self.walk_now = 0
-        self.Window = Window
         self.initUI()
 
     def initUI(self):
@@ -53,37 +57,56 @@ class AIshow(QMainWindow):
         self.updatePanel()
         self.widght1.setLayout(self.gltMain)
 
-        self.edit = QTextEdit()
+        # self.edit = QTextEdit()
+        # file = open('order.txt').read()
+        # self.edit.setText(file)
+        # self.edit.setEnabled(False)
         file = open('order.txt').read()
-        self.edit.setText(file)
-        self.edit.setEnabled(False)
+        label = QLabel(file, self)
+        label.setStyleSheet('QLabel{font-size:22px}'
+                            'QLabel{font-weight:bold}'
+                            'QLabel{color:#000000}'
+                            'QLabel{font-family:SimSun}'
+                            )
+        label.setText(file)
+        label.setEnabled(False)
 
         hbox.addWidget(self.widght1)
-        hbox.addWidget(self.edit)
+        # hbox.addWidget(self.edit)
+        hbox.addWidget(label)
         hbox.setStretchFactor(self.widght1, 4)
-        hbox.setStretchFactor(self.edit, 1)
+        hbox.setStretchFactor(label, 1)
 
         mainframe = QWidget()
         mainframe.setLayout(hbox)
         self.setCentralWidget(mainframe)
 
-        self.toolbar1 = self.addToolBar('归位')
-        new = QAction(QIcon('python.png'), '归位', self)
+        self.toolbar1 = self.addToolBar('重新开始')
+        new = QAction(QIcon('return.png'), '重新开始', self)
         self.toolbar1.addAction(new)
         self.toolbar1.actionTriggered.connect(self.restart)
         self.toolbar1.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
         self.toolbar2 = self.addToolBar('动画演示')
-        new = QAction(QIcon('python.png'), '动画演示', self)
+        new = QAction(QIcon('play.png'), '动画演示', self)
         self.toolbar2.addAction(new)
         self.toolbar2.actionTriggered.connect(self.AIshow)
         self.toolbar2.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
         self.toolbar3 = self.addToolBar('逐步演示')
-        new = QAction(QIcon('python.png'), '逐步演示', self)
+        new = QAction(QIcon('click.png'), '逐步演示', self)
         self.toolbar3.addAction(new)
         self.toolbar3.actionTriggered.connect(self.buttonshow)
         self.toolbar3.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+
+        self.toolbar4 = self.addToolBar('返回')
+        new = QAction(QIcon('home.png'), '返回', self)
+        self.toolbar4.addAction(new)
+        self.toolbar4.actionTriggered.connect(self.back)
+        self.toolbar4.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+
+    def back(self):
+        self.hide()
 
     def restart(self):
         self.block = copy.deepcopy(self.initblocks)
@@ -102,6 +125,7 @@ class AIshow(QMainWindow):
         self.toolbar2.setEnabled(False)
         self.toolbar3.setEnabled(False)
 
+
     def buttonshow(self):
         self.toolbar1.setEnabled(False)
         self.toolbar2.setEnabled(False)
@@ -112,6 +136,7 @@ class AIshow(QMainWindow):
             self.walk_now = 0
             self.toolbar3.setEnabled(False)
             self.toolbar1.setEnabled(True)
+
 
     def walk(self):
         self.move(self.walk_list[self.walk_now])
@@ -166,15 +191,14 @@ class AIshow(QMainWindow):
                 # 值是否对应
                 elif self.block[row][column] != row * self.degree + column + 1:
                     return False
+
     def closeEvent(self, event):
-        reply = QMessageBox.question(self, 'AI演示', '确定要离开AI演示吗？', QMessageBox.Yes | QMessageBox.No,
-                                     QMessageBox.No)
+        reply = QMessageBox.question(self, '退出AI', '你确定退出AI吗？', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.Yes:
-            self.parent_label.flag = 0
-            self.Window.setVisible(1)
             event.accept()
         else:
             event.ignore()
+
 
 class Block(QLabel):
     """ 数字方块 """

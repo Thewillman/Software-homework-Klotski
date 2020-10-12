@@ -4,7 +4,9 @@ import random
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+import GameWindowChoose
 import MainWindow
+
 
 class Direction(IntEnum):
     UP = 0
@@ -17,11 +19,13 @@ class GameWindow3(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        palette = QPalette()
+        palette.setBrush(QPalette.Background, QBrush(QPixmap('bg.JPG')))
+        self.setPalette(palette)
+
         self.blocks = []
         self.zero_row = 0
         self.zero_column = 0
-        self.step = 0
-        self.des = ""
         self.gltMain = QGridLayout()
         self.initUI()
 
@@ -43,8 +47,8 @@ class GameWindow3(QMainWindow):
         # self.setStyleSheet("background-color:gray;")
         # self.show()
 
-        toolbar1 = self.addToolBar('重新开始')
-        new = QAction(QIcon('python.png'), '重新开始', self)
+        toolbar1 = self.addToolBar('更换题目')
+        new = QAction(QIcon('exchangerate.png'), '更换题目', self)
         toolbar1.addAction(new)
         toolbar1.actionTriggered.connect(self.restart)
         toolbar1.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
@@ -55,23 +59,22 @@ class GameWindow3(QMainWindow):
         # toolbar2.actionTriggered.connect(self.AIshow)
         # toolbar2.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         toolbar3 = self.addToolBar('返回')
-        new = QAction(QIcon('python.png'), '返回', self)
+        new = QAction(QIcon('home.png'), '返回', self)
         toolbar3.addAction(new)
         toolbar3.actionTriggered.connect(self.back)
         toolbar3.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
     def back(self):
         self.hide()
-        self.f = MainWindow.MainWindow()
-        self.f.show()
+        self.father = MainWindow.MainWindow()
+        self.father.show()
 
     def restart(self):
         self.blocks = []
         self.zero_row = 0
         self.zero_column = 0
-        self.step = 0
-        self.des = ""
         self.onInit()
+
 
     # def AIshow(self):
     #     print('222')
@@ -79,13 +82,8 @@ class GameWindow3(QMainWindow):
     # 初始化布局
     def onInit(self):
         # 产生顺序数组
-        self.numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
-        k = random.randint(0, 24)
-        self.numbers[k] = 0
-        self.des = ""
-        for i in self.numbers:
-            self.des += str(i)
-        self.blocks = []
+        self.numbers = list(range(1, 25))
+        self.numbers.append(0)
         # 将数字添加到二维数组
         for row in range(5):
             self.blocks.append([])
@@ -112,11 +110,9 @@ class GameWindow3(QMainWindow):
             self.move(Direction.LEFT)
         if (key == Qt.Key_Right or key == Qt.Key_D):
             self.move(Direction.RIGHT)
-        self.step += 1
         self.updatePanel()
         if self.checkResult():
-            str2 = '恭喜您完成挑战！' + '移动了' + str(self.step) + '步'
-            if QMessageBox.Ok == QMessageBox.information(self, '挑战结果', str2):
+            if QMessageBox.Ok == QMessageBox.information(self, '挑战结果', '恭喜您完成挑战！'):
                 self.onInit()
 
     # 方块移动算法
@@ -151,12 +147,26 @@ class GameWindow3(QMainWindow):
     # 检测是否完成
     def checkResult(self):
         # 先检测最右下角是否为0
+        if self.blocks[4][4] != 0:
+            return False
+
         for row in range(5):
             for column in range(5):
+                # 运行到此处说明最右下角已经为0，pass即可
+                if row == 4 and column == 4:
+                    pass
                 # 值是否对应
-                if self.blocks[row][column] != int(self.des[row * 5 + column]):
+                elif self.blocks[row][column] != row * 5 + column + 1:
                     return False
+
         return True
+
+    def closeEvent(self, event):
+        reply = QMessageBox.question(self, '退出游戏', '你确定退出游戏吗？', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
 
 
 class Block(QLabel):

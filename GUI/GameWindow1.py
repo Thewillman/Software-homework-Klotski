@@ -7,8 +7,9 @@ from PyQt5.QtWidgets import *
 from AIshow import AIshow
 import copy
 import Astar
-import random
+import GameWindowChoose
 import MainWindow
+
 
 class Direction(IntEnum):
     UP = 0
@@ -21,12 +22,13 @@ class GameWindow1(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        palette = QPalette()
+        palette.setBrush(QPalette.Background, QBrush(QPixmap('bg.JPG')))
+        self.setPalette(palette)
+
         self.blocks = []
         self.zero_row = 0
         self.zero_column = 0
-        self.des = ""
-        self.step = 0
-        self.least_step = 0
         self.gltMain = QGridLayout()
         self.initUI()
         # self.button1 = QPushButton('AI演示')
@@ -37,8 +39,6 @@ class GameWindow1(QMainWindow):
         # 设置方块间隔
         self.gltMain.setSpacing(10)
         self.onInit()
-        self.time_label = TimeLabel(self)
-        self.id = self.time_label.startTimer(1000)
         # 设置布局
         mainframe = QWidget()
         mainframe.setLayout(self.gltMain)
@@ -53,39 +53,35 @@ class GameWindow1(QMainWindow):
         # self.setStyleSheet("background-color:gray;")
         # self.show()
 
-        toolbar1 = self.addToolBar('重新开始')
-        new = QAction(QIcon('python.png'), '重新开始', self)
+        toolbar1 = self.addToolBar('更换题目')
+        new = QAction(QIcon('exchangerate.png'), '更换题目', self)
         toolbar1.addAction(new)
         toolbar1.actionTriggered.connect(self.restart)
         toolbar1.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
         toolbar2 = self.addToolBar('AI演示')
-        new = QAction(QIcon('python.png'), 'AI演示', self)
+        new = QAction(QIcon('quick.png'), 'AI演示', self)
         toolbar2.addAction(new)
         toolbar2.actionTriggered.connect(self.AIshow)
         toolbar2.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
         toolbar3 = self.addToolBar('返回')
-        new = QAction(QIcon('python.png'), '返回', self)
+        new = QAction(QIcon('home.png'), '返回', self)
         toolbar3.addAction(new)
         toolbar3.actionTriggered.connect(self.back)
         toolbar3.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
     def back(self):
         self.hide()
-        self.f = MainWindow.MainWindow()
-        self.f.show()
+        self.father = MainWindow.MainWindow()
+        self.father.show()
 
     def restart(self):
         self.blocks = []
         self.zero_row = 0
         self.zero_column = 0
-        self.des = ""
-        self.walklist = []
-        self.step = 0
-        self.least_step = 0
-        self.numbers = []
         self.onInit()
+
 
     def AIshow(self):
         temp1 = copy.deepcopy(self.blocks)
@@ -95,13 +91,13 @@ class GameWindow1(QMainWindow):
         for i in range(3):
             for j in range(3):
                 list.append(temp1[i][j])
-        #print(temp1)
-        #print(temp2)
-        #print(temp3)
-        walklist = Astar.bfsHash(list, temp2, temp3, self.des,3)
+        print(temp1)
+        print(temp2)
+        print(temp3)
+        walklist = Astar.bfsHash(list, temp2, temp3, 3)
         print('walklist:', walklist)
         temp4 = copy.deepcopy(walklist)
-        self.ai_show = AIshow(self.time_label, temp1, temp2, temp3, 3, temp4,self)
+        self.ai_show = AIshow(temp1, temp2, temp3, 3, temp4)
         self.ai_show.show()
         # print(self.blocks)
         # print(self.zero_row)
@@ -110,17 +106,9 @@ class GameWindow1(QMainWindow):
     # 初始化布局
     def onInit(self):
         # 产生顺序数组
-
-        self.numbers = [1,2,3,4,5,6,7,8,9]
-        k = random.randint(0,8)
-        self.numbers[k] = 0
-        self.des = ""
-
-        for i in self.numbers:
-            self.des += str(i)
-        print(self.des)
+        self.numbers = list(range(1, 9))
+        self.numbers.append(0)
         # 将数字添加到二维数组
-        self.blocks = []
         for row in range(3):
             self.blocks.append([])
             for column in range(3):
@@ -133,20 +121,7 @@ class GameWindow1(QMainWindow):
         for i in range(500):
             random_num = random.randint(0, 3)
             self.move(Direction(random_num))
-        temp1 = copy.deepcopy(self.blocks)
-        temp2 = copy.deepcopy(self.zero_row)
-        temp3 = copy.deepcopy(self.zero_column)
-        print(temp1)
-        print(temp2)
-        print(temp3)
-        list = []
-        for i in range(3):
-            for j in range(3):
-                list.append(temp1[i][j])
-        print(list)
-        self.least_step = len(Astar.bfsHash(list, temp2, temp3, self.des,3))
         self.updatePanel()
-
 
     # 检测按键
     def keyPressEvent(self, event):
@@ -162,15 +137,12 @@ class GameWindow1(QMainWindow):
             self.move(Direction.LEFT)
         if (key == Qt.Key_Right or key == Qt.Key_D):
             self.move(Direction.RIGHT)
-        self.step += 1
         self.updatePanel()
         # print(self.blocks)
         # print(self.zero_column)
         # print(self.zero_row)
         if self.checkResult():
-            str2 = '恭喜您完成挑战！'+'移动了'+str(self.step)+'步,和ai差'+str(self.step-self.least_step)+'步'
-            if QMessageBox.Ok == QMessageBox.information(self, '挑战结果', str2):
-                self.restart()
+            if QMessageBox.Ok == QMessageBox.information(self, '挑战结果', '恭喜您完成挑战！'):
                 self.onInit()
 
     # 方块移动算法
@@ -205,14 +177,27 @@ class GameWindow1(QMainWindow):
     # 检测是否完成
     def checkResult(self):
         # 先检测最右下角是否为0
+        if self.blocks[2][2] != 0:
+            return False
 
         for row in range(3):
             for column in range(3):
+                # 运行到此处说明最右下角已经为0，pass即可
+                if row == 2 and column == 2:
+                    pass
                 # 值是否对应
-                if self.blocks[row][column] != int(self.des[row*3+column]):
+                elif self.blocks[row][column] != row * 3 + column + 1:
                     return False
+
         return True
 
+
+    def closeEvent(self, event):
+        reply = QMessageBox.question(self, '退出游戏', '你确定退出游戏吗？', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
 
 class Block(QLabel):
     """ 数字方块 """
@@ -241,45 +226,5 @@ class Block(QLabel):
         if self.number == 0:
             self.setStyleSheet("background-color:white;border-radius:10px;")
         else:
-            self.setStyleSheet("background-color:black;border-radius:10px;")
+            self.setStyleSheet("background-color:#000000;border-radius:10px;")
             self.setText(str(self.number))
-
-class TimeLabel(QLabel):
-    def __init__(self, par):
-        super().__init__()
-        self.setText('0')
-        self.d = par
-        font = QFont()
-        font.setPointSize(30)
-        font.setBold(True)
-        self.setFont(font)
-        self.flag = 0
-
-    def timerEvent(self, event):
-        #print(self.flag)
-        if self.flag == 0:
-            a = int(self.text()) + 1
-            if a == 100000:
-                self.killTimer(self.d.id)
-            self.setText(str(a))
-        else:
-            a = int(self.text())
-            self.setText(str(a))
-
-    def tokill(self):
-        self.killTimer(self.d.id)
-
-    def tostop(self):
-        self.flag = 1
-
-    def tocontinue(self):
-        self.flag = 0
-
-    def restart(self):
-        self.startTimer(1000)
-
-    def gettime(self):
-        return int(self.text())
-
-    def settime(self):
-        self.setText('0')

@@ -12,17 +12,19 @@ import MainWindow
 
 blocks = [1, 2, 3, 4, 5, 6, 7, 8, 0]
 
-
 class Direction(IntEnum):
     UP = 0
     DOWN = 1
     LEFT = 2
     RIGHT = 3
 
-
 class TryWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        palette = QPalette()
+        palette.setBrush(QPalette.Background, QBrush(QPixmap('bg.JPG')))
+        self.setPalette(palette)
+
         self.setWindowTitle('挑战模式')
         self.setWindowModality(Qt.ApplicationModal)
         self.resize(800, 800)
@@ -32,22 +34,25 @@ class TryWindow(QMainWindow):
         self.widght4 = QWidget()
         self.zero_row = 0
         self.zero_column = 0
-        self.des = ""
-        self.step = 0
-        self.least_step = 0
         self.gothrough = 0
         self.degree = 3
-        self.totaltime = 0
         self.initUI()
         # self.blocks = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]
+
 
     def initUI(self):
         hox = QHBoxLayout()
         form1 = QFormLayout()
         self.form2 = QFormLayout()
 
-        self.time_label = TimeLabel(self)
-        self.id = self.time_label.startTimer(1000)
+        # self.time_label = TimeLabel(self)
+        # self.id = self.time_label.startTimer(1000)
+        self.time_label = TimeLabel()
+        self.timer = QTimer()
+        self.timer.setInterval(1000)
+        self.timer.start()
+        self.timer.timeout.connect(self.time_label.addtime)
+
         form1.addRow('<h1>用时：<h1/>', self.time_label)
 
         self.step_label = StepLabel(self.gothrough)
@@ -90,25 +95,22 @@ class TryWindow(QMainWindow):
         # toolbar1.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
         self.toolbar2 = self.addToolBar('AI演示')
-        new = QAction(QIcon('python.png'), 'AI演示', self)
+        new = QAction(QIcon('quick.png'), 'AI演示', self)
         self.toolbar2.addAction(new)
         self.toolbar2.actionTriggered.connect(self.AIshow)
         self.toolbar2.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+
+        self.toolbar3 = self.addToolBar('返回')
+        new = QAction(QIcon('home.png'), '返回', self)
+        self.toolbar3.addAction(new)
+        self.toolbar3.actionTriggered.connect(self.back)
+        self.toolbar3.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+
 
     # def over(self):
     #     reply = QMessageBox.question(self, '退出游戏', '你确定退出游戏吗？', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
     #     if reply == QMessageBox.Yes:
     #         QCoreApplication.instance().quit()
-        toolbar3 = self.addToolBar('返回')
-        new = QAction(QIcon('python.png'), '返回', self)
-        toolbar3.addAction(new)
-        toolbar3.actionTriggered.connect(self.back)
-        toolbar3.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-
-    def back(self):
-        self.hide()
-        self.f = MainWindow.MainWindow()
-        self.f.show()
 
     def closeEvent(self, event):
         time = QDateTime.currentDateTime()
@@ -119,41 +121,39 @@ class TryWindow(QMainWindow):
         print(string)
         flag = self.reocrd(string)
         if flag:
-            reply = QMessageBox.question(self, '退出游戏', '你已打破记录，你确定退出游戏吗？', QMessageBox.Yes | QMessageBox.No,
-                                         QMessageBox.No)
+            reply = QMessageBox.question(self, '退出游戏', '你已打破记录，你确定退出游戏吗？', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             if reply == QMessageBox.Yes:
                 event.accept()
             else:
                 event.ignore()
         else:
-            reply = QMessageBox.question(self, '退出游戏', '你并未打破纪录，你确定退出游戏吗？', QMessageBox.Yes | QMessageBox.No,
-                                         QMessageBox.No)
+            reply = QMessageBox.question(self, '退出游戏', '你并未打破纪录，你确定退出游戏吗？', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             if reply == QMessageBox.Yes:
                 event.accept()
             else:
                 event.ignore()
 
     def AIshow(self):
-        temp1 = copy.deepcopy(self.blocks)
-        temp2 = copy.deepcopy(self.zero_row)
-        temp3 = copy.deepcopy(self.zero_column)
-        list = []
-        for i in range(3):
-            for j in range(3):
-                list.append(temp1[i][j])
-        print(temp1)
-        print(temp2)
-        print(temp3)
-        walklist = Astar.bfsHash(list, temp2, temp3, self.des, 3)
-        print('walklist:', walklist)
-        temp4 = copy.deepcopy(walklist)
-        self.ai_show = AIshow(self.time_label ,temp1, temp2, temp3, 3, temp4,self)
-        self.time_label.tostop()
-        self.hide()
-        self.ai_show.show()
-        # print(self.blocks)
-        # print(self.zero_row)
-        # print(self.zero_column)
+        if self.degree == 3:
+            # self.toolbar2.setEnabled(True)
+            temp1 = copy.deepcopy(self.blocks)
+            temp2 = copy.deepcopy(self.zero_row)
+            temp3 = copy.deepcopy(self.zero_column)
+            list = []
+            for i in range(3):
+                for j in range(3):
+                    list.append(temp1[i][j])
+            walklist = Astar.bfsHash(list, temp2, temp3, 3)
+            print('walklist:', walklist)
+            temp4 = copy.deepcopy(walklist)
+            self.time_label.ai_add()
+            self.ai_show = AIshow(temp1, temp2, temp3, 3, temp4)
+            # self.time_label.tostop()
+            self.ai_show.show()
+            # print('flag:' ,self.flag)
+            # if self.flag == 0:
+            #     self.time_label.restart()
+
 
     def reocrd(self, string):
         file = open('rank.txt')
@@ -194,19 +194,14 @@ class TryWindow(QMainWindow):
     # 初始化布局
     def onInit(self):
         # 产生顺序数组
-        self.numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        k = random.randint(0, 8)
-        self.numbers[k] = 0
-        self.des = ""
-        self.step = 0
-        for i in self.numbers:
-            self.des += str(i)
-
+        print(self.degree)
+        self.numbers = list(range(1, self.degree * self.degree))
+        self.numbers.append(0)
         # 将数字添加到二维数组
-        for row in range(3):
+        for row in range(self.degree):
             self.blocks.append([])
-            for column in range(3):
-                temp = self.numbers[row * 3 + column]
+            for column in range(self.degree):
+                temp = self.numbers[row * self.degree + column]
                 if temp == 0:
                     self.zero_row = row
                     self.zero_column = column
@@ -215,17 +210,12 @@ class TryWindow(QMainWindow):
         for i in range(500):
             random_num = random.randint(0, 3)
             self.move(Direction(random_num))
-        temp1 = copy.deepcopy(self.blocks)
-        temp2 = copy.deepcopy(self.zero_row)
-        temp3 = copy.deepcopy(self.zero_column)
-        list = []
-        for i in range(3):
-            for j in range(3):
-                list.append(temp1[i][j])
-        operation = Astar.bfsHash(list, temp2, temp3, self.des, 3)
-        print(operation)
-        self.least_step = len(operation)
         self.updatePanel()
+
+    def back(self):
+        self.hide()
+        self.father = MainWindow.MainWindow()
+        self.father.show()
 
     # 检测按键
     def keyPressEvent(self, event):
@@ -238,21 +228,32 @@ class TryWindow(QMainWindow):
             self.move(Direction.LEFT)
         if (key == Qt.Key_Right or key == Qt.Key_D):
             self.move(Direction.RIGHT)
-        self.time_label.flag = 0
-        self.step += 1
         self.updatePanel()
         if self.checkResult():
-            self.time_label.tokill()
-            str2 = '恭喜您完成挑战！' + '移动了' + str(self.step) + '步,和ai差' + str(self.step - self.least_step) + '步'
-            if QMessageBox.Ok == QMessageBox.information(self, '挑战结果', str2):
+            # self.time_label.tostop()
+            self.timer.stop()
+            if QMessageBox.Ok == QMessageBox.information(self, '挑战结果', '恭喜您完成关卡'):
                 self.gothrough = self.gothrough + 1
                 self.step_label.add_step()
                 self.blocks = []
                 self.zero_row = 0
                 self.zero_column = 0
-                self.onInit()
-            self.time_label.restart()
+                if self.gothrough < 1:
+                    self.onInit()
+                elif self.gothrough >=2 and self.gothrough < 4:
+                    if self.gothrough == 2:
+                        self.degree = self.degree + 1
+                        self.toolbar2.setEnabled(False)
+                    self.onInit()
+                else:
+                    if self.gothrough == 4:
+                        self.degree = self.degree + 1
+                        self.toolbar2.setEnabled(False)
+                    self.onInit()
 
+                # self.onInit()
+            # self.time_label.restart()
+            self.timer.start()
     # 方块移动算法
     def move(self, direction):
         if (direction == Direction.UP):  # 上
@@ -285,48 +286,63 @@ class TryWindow(QMainWindow):
     # 检测是否完成
     def checkResult(self):
         # 先检测最右下角是否为0
+        if self.blocks[self.degree - 1][self.degree - 1] != 0:
+            return False
 
-        for row in range(3):
-            for column in range(3):
+        for row in range(self.degree):
+            for column in range(self.degree):
+                # 运行到此处说明最右下角已经为0，pass即可
+                if row == (self.degree - 1) and column == (self.degree - 1):
+                    return True
                 # 值是否对应
-                if self.blocks[row][column] != int(self.des[row * 3 + column]):
+                elif self.blocks[row][column] != row * self.degree + column + 1:
                     return False
-        return True
 
+
+# class TimeLabel(QLabel):
+#     def __init__(self, par):
+#         super().__init__()
+#         self.setText('0')
+#         self.d = par
+#         font = QFont()
+#         font.setPointSize(30)
+#         font.setBold(True)
+#         self.setFont(font)
+#
+#     def timerEvent(self, event):
+#         a = int(self.text()) + 1
+#         if a == 100000:
+#             self.killTimer(self.d.id)
+#         self.setText(str(a))
+#
+#     def tostop(self):
+#         self.killTimer(self.d.id)
+#
+#     def restart(self):
+#         self.startTimer(1000)
+#
+#     def gettime(self):
+#         return int(self.text())
+#
+#     def settime(self):
+#         self.setText('0')
+#
+#     def ai_add(self):
+#         a = int(self.text()) + 20
+#         self.setText(str(a))
 
 class TimeLabel(QLabel):
-    def __init__(self, par):
+    def __init__(self):
         super().__init__()
         self.setText('0')
-        self.d = par
         font = QFont()
         font.setPointSize(30)
         font.setBold(True)
         self.setFont(font)
-        self.flag = 0
 
-    def timerEvent(self, event):
-        #print(self.flag)
-        if self.flag == 0:
-            a = int(self.text()) + 1
-            if a == 100000:
-                self.killTimer(self.d.id)
-            self.setText(str(a))
-        else:
-            a = int(self.text())
-            self.setText(str(a))
-
-    def tokill(self):
-        self.killTimer(self.d.id)
-
-    def tostop(self):
-        self.flag = 1
-
-    def tocontinue(self):
-        self.flag = 0
-
-    def restart(self):
-        self.startTimer(1000)
+    def addtime(self):
+        a = int(self.text()) + 1
+        self.setText(str(a))
 
     def gettime(self):
         return int(self.text())
@@ -334,6 +350,9 @@ class TimeLabel(QLabel):
     def settime(self):
         self.setText('0')
 
+    def ai_add(self):
+        a = int(self.text()) + 20
+        self.setText(str(a))
 
 class StepLabel(QLabel):
     def __init__(self, num):
@@ -354,6 +373,7 @@ class StepLabel(QLabel):
 
     def setstep(self):
         self.setText('0')
+
 
 
 class Block(QLabel):
@@ -385,7 +405,6 @@ class Block(QLabel):
         else:
             self.setStyleSheet("background-color:black;border-radius:10px;")
             self.setText(str(self.number))
-
 
 class node(object):
     def __init__(self, date, num, time):
