@@ -26,6 +26,7 @@ Flask==1.1.2
 future==0.18.2
 gensim==3.8.3
 GPUtil==1.4.0
+helpdev==0.7.1
 idna==2.10
 imageio==2.9.0
 iniconfig==1.0.1
@@ -65,7 +66,9 @@ pytorch-pretrained-bert==0.6.2
 pywin32-ctypes==0.2.0
 PyYAML==5.3.1
 pyzmq==19.0.2
+QDarkStyle==2.8.1
 qrcode==6.1
+QtPy==1.9.0
 regex==2020.7.14
 requests==2.24.0
 s3transfer==0.3.3

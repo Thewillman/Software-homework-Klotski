@@ -4,6 +4,7 @@ from queue import PriorityQueue
 import random
 import AstarFind as answer
 import AstarFind2 as answer2
+import AstarFind3 as answer3
 changeId = [
     [-1, -1, 3, 1],
     [-1, 0, 4, 2],
@@ -51,6 +52,24 @@ def SampleSolve2(order, origin, swap, swapStep):
             break
     # 开始搜索
     b = answer2.bfsHash(order, k, origin, swapStep, swap)
+    print('跑出来了！')
+    print('初始局势：')
+    showmap(order)
+    print('目标局势：')
+    showmap(origin)
+    print('强制交换步数：', swapStep)
+    print('强制交换位置：', swap)
+    print('操作序列：', b.operation)
+    print('自由交换：', b.swap)
+    return b.operation
+
+def SampleSolve3(order, origin, swap, swapStep):
+    # 确定白块位置
+    for k in range(9):
+        if order[k] == 0:
+            break
+    # 开始搜索
+    b = answer3.bfsHash(order, k, origin, swapStep, swap)
     print('跑出来了！')
     print('初始局势：')
     showmap(order)
