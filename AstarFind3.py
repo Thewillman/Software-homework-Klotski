@@ -19,7 +19,7 @@ changeId = [
 reverse = {'w': 's', 's': 'w', 'a': 'd', 'd': 'a'}
 change = {'w': 0, 'a': 1, 's': 2, 'd': 3}
 dir = ['w', 'a', 's', 'd']
-que = PriorityQueue()
+
 
 x = [0, 0, 0, 1, 1, 1, 2, 2, 2]
 y = [0, 1, 2, 0, 1, 2, 0, 1, 2]
@@ -41,8 +41,10 @@ class node(object):
 
     def __lt__(self, other):
         # 重载运算符，优先队列用得到
-        return self.cost < other.cost
-
+        if self.flag == other.flag:
+            return self.cost < other.cost
+        else:
+            return self.flag < other.flag
     def get_zeroPos(self):
         for i in range(9):
             if self.des[i] == 0:
@@ -172,6 +174,7 @@ def getOrder(temp, operation, delta, m, zeroPos):
 def bfsHash(start, zeroPos, des, step, change_position):
     # 之前采取的是哈希表，由于哈希表会存在冲突问题，然后采取O（n）的后移操作，在面对需要用到大量操作数的时候
     # 算法效率上就会大幅度降低，所以最后用回python自带的字典
+    que = PriorityQueue()
     first = node(start, 0, zeroPos, des, [], [], 0)
     que.put(first)
     mymap = {}
@@ -191,15 +194,15 @@ def bfsHash(start, zeroPos, des, step, change_position):
         # strk = str(tempN.step) + ':' + str(temp) + ':' + str(tempN.operation) + ':' + str(tempN.swap)
         # print(strk)
 
+
+        # print(tempN.step)
+        # print(tempN.operation)
         if check_list(des, temp):  # 若为目标局势则跳出
             # print(des)
             # print(temp)
             # print(tempN.step)
             # print(tempN.operation)
             return tempN
-        # print(tempN.step)
-        # print(tempN.operation)
-
         if len(tempN.operation) == step and tempN.flag == 0:  # 符合强制交换条件，开始执行变换操作
             # print(2)
             temp = tempN.num.copy()
@@ -362,7 +365,6 @@ def getDestImageOrder(order):  # 得确定哪块空了，将其标号为0表示�
             break
     return dst
 
-
 def PostAnswer(post_id, operation, swap):  # 提交答案
     url = 'http://47.102.118.1:8089/api/answer'
     str1 = ''
@@ -385,34 +387,36 @@ def PostAnswer(post_id, operation, swap):  # 提交答案
 
 
 if __name__ == '__main__':
-    order, limit_step, change_position, post_id = getProblemImageOrder('031802126')
-    # 将所需信息输入到txt文本中方便debug和手模数据
-    f = open('ans1.txt', 'w', encoding='UTF-8')
-    f.write(str(order))
-    f.write('\n')
-    f.write(str(limit_step))
-    f.write('\n')
-    f.write(str(change_position))
-    f.write('\n')
-    f.write(str(post_id))
-    f.write('\n')
-    dst = getDestImageOrder(order)
+    r = 100
+    for i in range(r):
+        order, limit_step, change_position, post_id = getProblemImageOrder('031802126')
+        # 将所需信息输入到txt文本中方便debug和手模数据
+        f = open('ans1.txt', 'w', encoding='UTF-8')
+        f.write(str(order))
+        f.write('\n')
+        f.write(str(limit_step))
+        f.write('\n')
+        f.write(str(change_position))
+        f.write('\n')
+        f.write(str(post_id))
+        f.write('\n')
+        dst = getDestImageOrder(order)
 
-    f.write(str(dst))
-    f.write('\n')
-    # 确定白块位置
-    for k in range(9):
-        if order[k] == 0:
-            break
-    # 开始搜索
-    b = bfsHash(order, k, dst, limit_step, change_position)
-    f.write(str(b.step))
-    f.write('\n')
-    f.write(str(b.operation))
-    f.write('\n')
-    f.write(str(b.swap))
-    f.write('\n')
-    f.close()
+        f.write(str(dst))
+        f.write('\n')
+        # 确定白块位置
+        for k in range(9):
+            if order[k] == 0:
+                break
+        # 开始搜索
+        b = bfsHash(order, k, dst, limit_step, change_position)
+        f.write(str(b.step))
+        f.write('\n')
+        f.write(str(b.operation))
+        f.write('\n')
+        f.write(str(b.swap))
+        f.write('\n')
+        f.close()
 
-    # 提交结果
-    PostAnswer(post_id, b.operation, b.swap)
+        # 提交结果
+        PostAnswer(post_id, b.operation, b.swap)

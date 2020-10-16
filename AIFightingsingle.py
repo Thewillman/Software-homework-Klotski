@@ -19,7 +19,7 @@ changeId = [
 reverse = {'w': 's', 's': 'w', 'a': 'd', 'd': 'a'}
 change = {'w': 0, 'a': 1, 's': 2, 'd': 3}
 dir = ['w', 'a', 's', 'd']
-
+que = PriorityQueue()
 
 x = [0, 0, 0, 1, 1, 1, 2, 2, 2]
 y = [0, 1, 2, 0, 1, 2, 0, 1, 2]
@@ -37,7 +37,6 @@ class node(object):
         self.swap = swap
         self.flag = flag
 
-
     def __lt__(self, other):
         # 重载运算符，优先队列用得到
         if self.flag == other.flag:
@@ -52,7 +51,6 @@ class node(object):
 
     def setCost(self):  # A*算法要用到的估价函数
         c = 0
-
         for i in range(9):
             if self.num[i] != 0:
                 c += abs(int(i / 3) - x[self.num[i]-1]) + abs(int(i%3) - y[self.num[i]-1])
@@ -73,7 +71,6 @@ def CostCount(num, des, step):  # 估价函数
         else:
             c += abs(int(i / 3) - int(k / 3)) + abs(int(i % 3) - int(k % 3))
     return c + step
-
 
 
 def check(map, des):  # 校对当前局势是否有解
@@ -142,7 +139,6 @@ def getOrder(temp, operation, delta, m, zeroPos):
 def bfsHash(start, zeroPos, des, step, change_position):
     # 之前采取的是哈希表，由于哈希表会存在冲突问题，然后采取O（n）的后移操作，在面对需要用到大量操作数的时候
     # 算法效率上就会大幅度降低，所以最后用回python自带的字典
-    que = PriorityQueue()
     first = node(start, 0, zeroPos, des, [], [], 0)
     que.put(first)
     mymap = {}
@@ -161,13 +157,15 @@ def bfsHash(start, zeroPos, des, step, change_position):
         #print(temp)
         # strk = str(tempN.step) + ':' + str(temp) + ':' + str(tempN.operation) + ':' + str(tempN.swap)
         # print(strk)
+
+
         # print(tempN.step)
         # print(tempN.operation)
         if check_list(des, temp):  # 若为目标局势则跳出
-            # print(des)
-            # print(temp)
-            # print(tempN.step)
-            # print(tempN.operation)
+            print(des)
+            print(temp)
+            print(tempN.step)
+            print(tempN.operation)
             return tempN
         if len(tempN.operation) == step and tempN.flag == 0:  # 符合强制交换条件，开始执行变换操作
             # print(2)
@@ -247,42 +245,10 @@ def bfsHash(start, zeroPos, des, step, change_position):
             # print(operation)
             que.put(tempM)
 
-def getDestImageOrder(order):  # 得确定哪块空了，将其标号为0表示白色块
-    dst = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    map = {}
-    for i in order:
-        map[i] = 1
-    # print(map)
-    for m in range(0, len(dst)):
-        if dst[m] not in map.keys():
-            dst[m] = 0
-            break
-    return dst
-
-def PostAnswer(post_id, operation, swap, teamid, token):  # 提交答案
-    url = 'http://47.102.118.1:8089/api/challenge/submit'
-    str1 = ''
-    for i in operation:
-        str1 += i
-    headers = {'Content-Type': 'application/json'}
-    data = {
-        "uuid": str(post_id),
-        "teamid": teamid,
-        "token" : token,
-        "answer": {
-            "operations": str1,
-            "swap": swap
-        }
-    }
-    print(json.dumps(data))
-    res = requests.post(url=url, headers=headers, data=json.dumps(data))
-    # 输出提交返回的信息
-    print(res.text)
 
 # 拿到我们的图以及其他要求信息，与之前预被处理成九宫格的36个正常字符图进行比对并标号
 def getProblemImageOrder(teamid, uuid, token):
     # 拿图
-    print(uuid)
     url = 'http://47.102.118.1:8089/api/challenge/start/' + uuid
     data = {
         "teamid": teamid,
@@ -357,42 +323,72 @@ def getProblemImageOrder(teamid, uuid, token):
 
     return order, dict['data']['step'], dict['data']['swap'], dict['uuid']
 
+
+def getDestImageOrder(order):  # 得确定哪块空了，将其标号为0表示白色块
+    dst = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    map = {}
+    for i in order:
+        map[i] = 1
+    # print(map)
+    for m in range(0, len(dst)):
+        if dst[m] not in map.keys():
+            dst[m] = 0
+            break
+    return dst
+
+
+def PostAnswer(post_id, operation, swap, teamid, token):  # 提交答案
+    url = 'http://47.102.118.1:8089/api/challenge/submit'
+    str1 = ''
+    for i in operation:
+        str1 += i
+    headers = {'Content-Type': 'application/json'}
+    data = {
+        "uuid": str(post_id),
+        "teamid": teamid,
+        "token" : token,
+        "answer": {
+            "operations": str1,
+            "swap": swap
+        }
+    }
+    print(json.dumps(data))
+    res = requests.post(url=url, headers=headers, data=json.dumps(data))
+    # 输出提交返回的信息
+    print(res.text)
+
+
+
+
 if __name__ == '__main__':
-    res = requests.get('http://47.102.118.1:8089/api/challenge/list')
-    all = res.json()
-    for m in range(len(all)):
-        if all[m]['author'] == 19:
-            continue
-        uuid = all[m]['uuid']
-        order, limit_step, change_position, post_id = getProblemImageOrder(19,uuid,'6c74b0ea-c164-4efb-88ec-334fb268ee64')
-        # 将所需信息输入到txt文本中方便debug和手模数据
-        str1 = 'ans' + str(m) +'.txt'
-        f = open(str1, 'w', encoding='UTF-8')
-        f.write(str(order))
-        f.write('\n')
-        f.write(str(limit_step))
-        f.write('\n')
-        f.write(str(change_position))
-        f.write('\n')
-        f.write(str(post_id))
-        f.write('\n')
-        dst = getDestImageOrder(order)
+    order, limit_step, change_position, post_id = getProblemImageOrder(19,'5e194a3e-a7f5-49c8-88a1-17e70b0d2fcb','6c74b0ea-c164-4efb-88ec-334fb268ee64')
+    # 将所需信息输入到txt文本中方便debug和手模数据
+    f = open('ans1.txt', 'w', encoding='UTF-8')
+    f.write(str(order))
+    f.write('\n')
+    f.write(str(limit_step))
+    f.write('\n')
+    f.write(str(change_position))
+    f.write('\n')
+    f.write(str(post_id))
+    f.write('\n')
+    dst = getDestImageOrder(order)
 
-        f.write(str(dst))
-        f.write('\n')
-        # 确定白块位置
-        for k in range(9):
-            if order[k] == 0:
-                break
-        # 开始搜索
-        b = bfsHash(order, k, dst, limit_step, change_position)
-        f.write(str(b.step))
-        f.write('\n')
-        f.write(str(b.operation))
-        f.write('\n')
-        f.write(str(b.swap))
-        f.write('\n')
-        f.close()
+    f.write(str(dst))
+    f.write('\n')
+    # 确定白块位置
+    for k in range(9):
+        if order[k] == 0:
+            break
+    # 开始搜索
+    b = bfsHash(order, k, dst, limit_step, change_position)
+    f.write(str(b.step))
+    f.write('\n')
+    f.write(str(b.operation))
+    f.write('\n')
+    f.write(str(b.swap))
+    f.write('\n')
+    f.close()
 
-        # 提交结果
-        PostAnswer(post_id, b.operation, b.swap,19,'6c74b0ea-c164-4efb-88ec-334fb268ee64')
+    # 提交结果
+    PostAnswer(post_id, b.operation, b.swap,19,'6c74b0ea-c164-4efb-88ec-334fb268ee64')

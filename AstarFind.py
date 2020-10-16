@@ -19,40 +19,54 @@ changeId = [
 reverse = {'w': 's', 's': 'w', 'a': 'd', 'd': 'a'}
 change = {'w': 0, 'a': 1, 's': 2, 'd': 3}
 dir = ['w', 'a', 's', 'd']
-que = PriorityQueue()
 
-
+x = [0, 0, 0, 1, 1, 1, 2, 2, 2]
+y = [0, 1, 2, 0, 1, 2, 0, 1, 2]
 # node类表示当前的局势以及操作序列还有移动步数
 class node(object):
-
     def __init__(self, num, step, zeroPos, des, operation, swap, flag):
         # num指当前局势，cost表示用于A*算法的估价函数值，step指移动步数，des指目标状态，operation指操作序列，swap记录自由交换的位置，flag指是否已经被强制交换
         self.num = num
         self.step = step
         self.zeroPos = zeroPos
         self.des = des
+        self.Init_zeroPos = self.get_zeroPos()
         self.cost = self.setCost()
         self.operation = operation
         self.swap = swap
         self.flag = flag
 
+
     def __lt__(self, other):
         # 重载运算符，优先队列用得到
         return self.cost < other.cost
+    def get_zeroPos(self):
+        for i in range(9):
+            if self.des[i] == 0:
+                return i
 
     def setCost(self):  # A*算法要用到的估价函数
         c = 0
+
         for i in range(9):
-            if self.num[i] != self.des[i]:
-                c = c + 1
+            if self.num[i] != 0:
+                c += abs(int(i / 3) - x[self.num[i]-1]) + abs(int(i%3) - y[self.num[i]-1])
+            else:
+                c += abs(int(i / 3) - int(self.Init_zeroPos/3)) + abs(int(i%3) - self.Init_zeroPos%3)
         return c + self.step
 
 
 def CostCount(num, des, step):  # 估价函数
     c = 0
+    k = 0
+    for k in range(9):
+        if des[k] == 0:
+            break
     for i in range(9):
-        if num[i] != des[i]:
-            c = c + 1
+        if num[i] != 0:
+            c += abs(int(i / 3) - x[num[i]-1]) + abs(int(i % 3) - y[num[i]-1])
+        else:
+            c += abs(int(i / 3) - int(k / 3)) + abs(int(i % 3) - int(k % 3))
     return c + step
 
 
@@ -154,6 +168,7 @@ def getOrder(temp, operation, delta, m, zeroPos):
 def bfsHash(start, zeroPos, des, step, change_position):
     # 之前采取的是哈希表，由于哈希表会存在冲突问题，然后采取O（n）的后移操作，在面对需要用到大量操作数的时候
     # 算法效率上就会大幅度降低，所以最后用回python自带的字典
+    que = PriorityQueue()
     first = node(start, 0, zeroPos, des, [], [], 0)
     que.put(first)
     mymap = {}
@@ -266,6 +281,7 @@ def getProblemImageOrder(stuid):
     # 拿图
     url = 'http://47.102.118.1:8089/api/problem?stuid=' + stuid
     r = requests.get(url)
+    print(r.text)
     dict = r.json()
     target = base64.b64decode(dict['img'])
     file = open('json_img_test.jpg', 'wb')
@@ -358,43 +374,44 @@ def PostAnswer(post_id, operation, swap):  # 提交答案
             "swap": swap
         }
     }
-    print(json.dumps(data))
+    #print(json.dumps(data))
     res = requests.post(url=url, headers=headers, data=json.dumps(data))
     # 输出提交返回的信息
     print(res.text)
 
 
 
-
 if __name__ == '__main__':
-    order, limit_step, change_position, post_id = getProblemImageOrder('031802126')
-    # 将所需信息输入到txt文本中方便debug和手模数据
-    f = open('ans1.txt', 'w', encoding='UTF-8')
-    f.write(str(order))
-    f.write('\n')
-    f.write(str(limit_step))
-    f.write('\n')
-    f.write(str(change_position))
-    f.write('\n')
-    f.write(str(post_id))
-    f.write('\n')
-    dst = getDestImageOrder(order)
+    r = 100
+    for i in range(r):
+        order, limit_step, change_position, post_id = getProblemImageOrder('031802126')
+        # 将所需信息输入到txt文本中方便debug和手模数据
+        f = open('ans1.txt', 'w', encoding='UTF-8')
+        f.write(str(order))
+        f.write('\n')
+        f.write(str(limit_step))
+        f.write('\n')
+        f.write(str(change_position))
+        f.write('\n')
+        f.write(str(post_id))
+        f.write('\n')
+        dst = getDestImageOrder(order)
 
-    f.write(str(dst))
-    f.write('\n')
-    # 确定白块位置
-    for k in range(9):
-        if order[k] == 0:
-            break
-    # 开始搜索
-    b = bfsHash(order, k, dst, limit_step, change_position)
-    f.write(str(b.step))
-    f.write('\n')
-    f.write(str(b.operation))
-    f.write('\n')
-    f.write(str(b.swap))
-    f.write('\n')
-    f.close()
+        f.write(str(dst))
+        f.write('\n')
+        # 确定白块位置
+        for k in range(9):
+            if order[k] == 0:
+                break
+        # 开始搜索
+        b = bfsHash(order, k, dst, limit_step, change_position)
+        f.write(str(b.step))
+        f.write('\n')
+        f.write(str(b.operation))
+        f.write('\n')
+        f.write(str(b.swap))
+        f.write('\n')
+        f.close()
 
-    # 提交结果
-    PostAnswer(post_id, b.operation, b.swap)
+        # 提交结果
+        PostAnswer(post_id, b.operation, b.swap)
