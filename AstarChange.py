@@ -42,10 +42,7 @@ class node(object):
         # 重载运算符，优先队列用得到
         if self.flag == other.flag:
             if self.flag == 1:
-                if self.step == other.step:
-                    return self.cost < other.cost
-                else:
-                    return self.step < other.step
+                return self.step < other.step
             else:
                 return self.cost < other.cost
         else:

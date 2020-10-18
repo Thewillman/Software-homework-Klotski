@@ -195,7 +195,7 @@ def CreateNormalSample():
         if changeId[k][random_num] != -1:
             order[k], order[changeId[k][random_num]] = order[changeId[k][random_num]], order[k]
             k = changeId[k][random_num]
-    step = random.randint(0, 20)  # 在主程序跑的过程中我们发现基本最大的步数都是在20步左右
+    step = 20  # 在主程序跑的过程中我们发现基本最大的步数都是在20步左右
     return origin, order, swap, step
 
 
@@ -276,7 +276,7 @@ def CreateNoAnswerBeforeSwapSample():  # 必须在交换后才有解且Astar存�
     k2 = random.randint(0, 8)
     swap.append(k1+1)
     swap.append(k2+1)
-    swapStep = limit_step + random.randint(1, 10)
+    swapStep = max(limit_step + random.randint(1, 10),20)
     return origin, order, swap, swapStep
 
 

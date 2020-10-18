@@ -4,13 +4,20 @@
     <list default="true" id="4a603cd4-b8a3-4949-a42b-af21a8bcfa3e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AIFighting.py" beforeDir="false" afterPath="$PROJECT_DIR$/AIFighting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AstarFind.py" beforeDir="false" afterPath="$PROJECT_DIR$/AstarFind.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AIFightingsingle.py" beforeDir="false" afterPath="$PROJECT_DIR$/AIFightingsingle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AstarChange.py" beforeDir="false" afterPath="$PROJECT_DIR$/AstarChange.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AstarFind2.py" beforeDir="false" afterPath="$PROJECT_DIR$/AstarFind2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AstarFind3.py" beforeDir="false" afterPath="$PROJECT_DIR$/AstarFind3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CreateAISample.py" beforeDir="false" afterPath="$PROJECT_DIR$/CreateAISample.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/order.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/order.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/rank.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/rank.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CreateSample.py" beforeDir="false" afterPath="$PROJECT_DIR$/CreateSample.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cut_chars/F_/1,1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cut_chars/F_/1,2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cut_chars/F_/1,3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cut_chars/F_/2,1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cut_chars/F_/2,2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cut_chars/F_/2,3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cut_chars/F_/3,1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cut_chars/F_/3,2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cut_chars/F_/3,3.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +29,17 @@
       <list>
         <option value="Python Script" />
       </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="Git.Settings">
@@ -40,7 +58,51 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
-  <component name="RunManager" selected="Python.AstarFind2">
+  <component name="RunManager" selected="Python.getProblemRank">
+    <configuration name="AIFighting" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Klotski" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/AIFighting.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="AIFightingsingle" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Klotski" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/AIFightingsingle.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="AstarChange" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Klotski" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -63,7 +125,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="AstarFind" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="CreateAISample" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Klotski" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -76,51 +138,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/AstarFind.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="AstarFind2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Klotski" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/AstarFind2.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="SampleTest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Klotski" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/SampleTest.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CreateAISample.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -153,11 +171,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.AstarFind2" />
-        <item itemvalue="Python.SampleTest" />
-        <item itemvalue="Python.AstarFind" />
-        <item itemvalue="Python.AstarChange" />
         <item itemvalue="Python.getProblemRank" />
+        <item itemvalue="Python.AIFighting" />
+        <item itemvalue="Python.AIFightingsingle" />
+        <item itemvalue="Python.CreateAISample" />
+        <item itemvalue="Python.AstarChange" />
       </list>
     </recent_temporary>
   </component>
@@ -196,6 +214,15 @@
       <workItem from="1602806992458" duration="975000" />
       <workItem from="1602785163019" duration="878000" />
       <workItem from="1602815225458" duration="3982000" />
+      <workItem from="1602853592178" duration="3573000" />
+      <workItem from="1602925064098" duration="1308000" />
+      <workItem from="1602932134423" duration="5947000" />
+      <workItem from="1602945412688" duration="2544000" />
+      <workItem from="1602983987696" duration="7369000" />
+      <workItem from="1602998835322" duration="1539000" />
+      <workItem from="1603006465300" duration="45000" />
+      <workItem from="1603026492652" duration="729000" />
+      <workItem from="1603028175112" duration="2710000" />
     </task>
     <servers />
   </component>
@@ -203,58 +230,63 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1493" height="244" key="GridCell.Tab.0.bottom" timestamp="1602820758064">
+    <state width="1493" height="337" key="GridCell.Tab.0.bottom" timestamp="1603032344062">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="244" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1602820758064" />
-    <state width="1493" height="244" key="GridCell.Tab.0.center" timestamp="1602820758063">
+    <state width="1493" height="337" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1603032344062" />
+    <state width="1493" height="337" key="GridCell.Tab.0.center" timestamp="1603032344062">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="244" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1602820758063" />
-    <state width="1493" height="244" key="GridCell.Tab.0.left" timestamp="1602820758063">
+    <state width="1493" height="337" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1603032344062" />
+    <state width="1493" height="337" key="GridCell.Tab.0.left" timestamp="1603032344062">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="244" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1602820758063" />
-    <state width="1493" height="244" key="GridCell.Tab.0.right" timestamp="1602820758063">
+    <state width="1493" height="337" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1603032344062" />
+    <state width="1493" height="337" key="GridCell.Tab.0.right" timestamp="1603032344062">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="244" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1602820758063" />
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1602433705644">
+    <state width="1493" height="337" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1603032344062" />
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1602855895863">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1602433705644" />
-    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1602433705644">
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1602855895863" />
+    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1602855895863">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1602433705644" />
-    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1602433705644">
+    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1602855895863" />
+    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1602855895862">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1602433705644" />
-    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1602433705644">
+    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1602855895862" />
+    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1602855895863">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1602433705644" />
+    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1602855895863" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1602855166792">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1602855166792" />
     <state x="0" y="0" width="1507" height="540" key="dock-window-1" timestamp="1602600840378">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="0" y="0" width="1507" height="540" key="dock-window-1/0.0.1536.824@0.0.1536.824" timestamp="1602600840378" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1602431487245">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1602934155939">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1602431487245" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1602934155939" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Klotski$AIFightingsingle.coverage" NAME="AIFightingsingle Coverage Results" MODIFIED="1602756967816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Klotski$AIFightingsingle.coverage" NAME="AIFightingsingle Coverage Results" MODIFIED="1602999821588" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Klotski$SampleTest.coverage" NAME="SampleTest Coverage Results" MODIFIED="1602817982359" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Klotski$start.coverage" NAME="start Coverage Results" MODIFIED="1602645600886" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GUI" />
-    <SUITE FILE_PATH="coverage/Klotski$AIFighting.coverage" NAME="AIFighting Coverage Results" MODIFIED="1602756862282" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Klotski$AIFighting.coverage" NAME="AIFighting Coverage Results" MODIFIED="1603032344038" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Klotski$AstarFind3.coverage" NAME="AstarFind3 Coverage Results" MODIFIED="1602757044404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Klotski$AstarFind.coverage" NAME="AstarFind Coverage Results" MODIFIED="1602816888621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Klotski$AstarFind.coverage" NAME="AstarFind Coverage Results" MODIFIED="1602854662077" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Klotski$Astar_find.coverage" NAME="Astar-find Coverage Results" MODIFIED="1601822991734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Klotski$changeToC.coverage" NAME="changeToC Coverage Results" MODIFIED="1602854394677" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Klotski$AstarFind2.coverage" NAME="AstarFind2 Coverage Results" MODIFIED="1602819143681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Klotski$AstarChange.coverage" NAME="AstarChange Coverage Results" MODIFIED="1602815764261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Klotski$CreateAISample.coverage" NAME="CreateAISample Coverage Results" MODIFIED="1602807030080" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Klotski$getProblemRank.coverage" NAME="getProblemRank Coverage Results" MODIFIED="1602807949402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Klotski$AstarChange.coverage" NAME="AstarChange Coverage Results" MODIFIED="1602932245842" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Klotski$CreateAISample.coverage" NAME="CreateAISample Coverage Results" MODIFIED="1602990113653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Klotski$getProblemRank.coverage" NAME="getProblemRank Coverage Results" MODIFIED="1602998871641" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

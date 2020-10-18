@@ -92,11 +92,9 @@ def check(map, des):  # 校对当前局势是否有解
     return (cnt1 % 2) == (cnt2 % 2)
 
 
-def getRightChange(order, des, step,cost_swap):  # 获得到保证交换后局势有解且估价函数最小的自由交换
+def getRightCost(order, des, step,cost_swap):  # 获得到保证交换后局势有解的最小估价值
 
     cost = int(10000000)
-    pos1 = 0
-    pos2 = 0
     for i in range(0, len(order)):
         for j in range(i + 1, len(order)):
             order[i], order[j] = order[j], order[i]
@@ -105,8 +103,6 @@ def getRightChange(order, des, step,cost_swap):  # 获得到保证交换后局�
             # print(tempCost)
             if tempCost < cost and check(order, des):
                 cost = tempCost
-                pos1 = i
-                pos2 = j
             order[i], order[j] = order[j], order[i]
     if cost_swap > cost:
         cost_swap = cost
@@ -114,7 +110,24 @@ def getRightChange(order, des, step,cost_swap):  # 获得到保证交换后局�
         map_cost[cost] = 1  #对于每次最佳交换我们都要记录他的估价值
     else:
         map_cost[cost] += 1
-    return pos1, pos2,cost_swap
+    return cost
+
+def getRightChange(order, des, step,cost_swap):
+
+    cost = getRightCost(order,des,step,cost_swap)
+    swap_listl = []
+    swap_listr = []
+    for i in range(0, len(order)):
+        for j in range(i + 1, len(order)):
+            order[i], order[j] = order[j], order[i]
+            # print(order)
+            tempCost = CostCount(order, des, step)
+            # print(tempCost)
+            if tempCost == cost:
+                swap_listl.append(i+1)
+                swap_listr.append(j+1)
+            order[i], order[j] = order[j], order[i]
+    return swap_listl,swap_listr
 
 
 def check_list(dest, now):  # 校对当前局势是否为目标局势
@@ -169,36 +182,55 @@ def bfsHash(start, zeroPos, des, step, change_position,cost_swap):
                 pos = change_position[0] - 1
             temp[change_position[0] - 1], temp[change_position[1] - 1] = temp[change_position[1] - 1], temp[
                 change_position[0] - 1]
-            swap = []
             if not check(temp, des):
-                pos1, pos2,cost_swap= getRightChange(temp, des, tempN.step,cost_swap)
-                if pos1 == pos:
-                    pos = pos2
-                elif pos2 == pos:
-                    pos = pos1
-                temp[pos1], temp[pos2] = temp[pos2], temp[pos1]
-                swap.append(pos1 + 1)
-                swap.append(pos2 + 1)
-            s = ""
-            for i in temp:
-                s += str(i)
-            mymap[s] = 1
-            operation = tempN.operation.copy()
-            temp_step = tempN.step
-            tempN = node(temp, temp_step, pos, des, operation, swap, 1)
-            if cost_swap > tempN.cost:
-                cost_swap = tempN.cost
-            if tempN.cost not in map_cost:
-                map_cost[tempN.cost] = 1  # 对于每次最佳交换我们都要记录他的估价值
+                swap_listl,swap_listr = getRightChange(temp, des, tempN.step,cost_swap)
+                #print(swap_listl)
+                #print(swap_listr)
+                len1 = len(swap_listl)
+                #print(len1)
+                for w in range(0,len1):
+                    print(w)
+                    pos1 = swap_listl[w] - 1
+                    pos2 = swap_listr[w] - 1
+                    if pos1 == pos:
+                        pos = pos2
+                    elif pos2 == pos:
+                        pos = pos1
+                    temp[pos1], temp[pos2] = temp[pos2], temp[pos1]
+                    swap = []
+                    swap.append(pos1 + 1)
+                    swap.append(pos2 + 1)
+                    s = ""
+                    for j in temp:
+                        s += str(j)
+                    mymap[s] = 1
+                    operation = tempN.operation.copy()
+                    temp_step = tempN.step
+                    tempN = node(temp, temp_step, pos, des, operation, swap, 1)
+                    if check_list(des, temp):  # 若交换后刚好为目标局势那就直接返回
+                        operation.append(' ')  # 应测试组要求加上一个字符防止评测判断不到交换这一步
+                        tempN = node(temp, temp_step, pos, des, operation, swap, 1)
+                        return tempN
+                    else:
+                        que2.put(tempN)  # 把所有交换后的节点都放在que2队列
+                        continue
+                print('\n')
             else:
-                map_cost[tempN.cost] += 1
-            if check_list(des, temp):  # 若交换后刚好为目标局势那就直接返回
-                operation.append(' ')  # 应测试组要求加上一个字符防止评测判断不到交换这一步
+                swap = []
+                s = ""
+                for i in temp:
+                    s += str(i)
+                mymap[s] = 1
+                operation = tempN.operation.copy()
+                temp_step = tempN.step
                 tempN = node(temp, temp_step, pos, des, operation, swap, 1)
-                return tempN
-            else:
-                que2.put(tempN)# 把所有交换后的节点都放在que2队列
-                continue
+                if check_list(des, temp):  # 若交换后刚好为目标局势那就直接返回
+                    operation.append(' ')  # 应测试组要求加上一个字符防止评测判断不到交换这一步
+                    tempN = node(temp, temp_step, pos, des, operation, swap, 1)
+                    return tempN
+                else:
+                    que2.put(tempN)# 把所有交换后的节点都放在que2队列
+                    continue
 
         # cnt用来对付无解情况，四个方向（cnt=4）都无路可走就为无解情况。
         # 如果这个情况出现在强制交换要求的步数前那么我们要添加“反复横跳”操作使得他达到强制交换要求的步数
@@ -240,8 +272,7 @@ def bfsHash(start, zeroPos, des, step, change_position,cost_swap):
 
 def bfsAfterSwap(que,des,mymap,cost_swap):
     #print(1)
-    global bfs_flag
-    if map_cost.get(cost_swap) > 1:
+    if map_cost.get(cost_swap) != 1:
         bfs_flag = 1
     print(bfs_flag)
     #然后就是对着交换后的队列继续bfs
@@ -272,6 +303,8 @@ def bfsAfterSwap(que,des,mymap,cost_swap):
 
 
 
+
+
 # 拿到我们的图以及其他要求信息，与之前预被处理成九宫格的36个正常字符图进行比对并标号
 def getProblemImageOrder(teamid, uuid, token):
     # 拿图
@@ -283,8 +316,9 @@ def getProblemImageOrder(teamid, uuid, token):
     }
     headers = {'Content-Type': 'application/json'}
     res = requests.post(url=url, headers=headers, data=json.dumps(data))
+    #print(res.text)
     dict = res.json()
-    print(dict)
+    #print(dict)
     target = base64.b64decode(dict['data']['img'])
     file = open('json_img_test.jpg', 'wb')
     file.write(target)
@@ -388,7 +422,7 @@ def PostAnswer(post_id, operation, swap, teamid, token):  # 提交答案
 
 
 if __name__ == '__main__':
-    order, limit_step, change_position, post_id = getProblemImageOrder(19, '07774b5c-9848-462c-9543-661bf56486d5',
+    order, limit_step, change_position, post_id = getProblemImageOrder(19, 'f5d7f5ce-3350-44c6-b065-3c8d53a5f144',
                                                                        '6c74b0ea-c164-4efb-88ec-334fb268ee64')
     # 将所需信息输入到txt文本中方便debug和手模数据
     f = open('ans1.txt', 'w', encoding='UTF-8')

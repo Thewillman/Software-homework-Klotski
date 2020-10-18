@@ -74,39 +74,6 @@ def CostCount(num, des, step):  # 估价函数
     return c + step
 
 
-# 哈希表
-def hashfuction(n, N):
-    return int(n) % int(N)
-
-
-class HashTable(object):
-
-    def __init__(self, size):
-        self.size = size
-        self.Next = [0] * self.size
-        self.Hashtable = [0] * self.size
-
-    def tryInsert(self, n, N):
-        # print(n)
-        hashvalue = hashfuction(n, N)
-        while self.Next[hashvalue]:
-            if self.Hashtable[hashvalue] == n:
-                return False
-            hashvalue = self.Next[hashvalue]
-        # print(hashvalue)
-        if self.Hashtable[hashvalue] == n:
-            return False
-        j = N - 1
-        while self.Hashtable[j]:
-            j = j + 1
-        self.Next[hashvalue] = j
-        self.Hashtable[j] = n
-        return True
-
-    def Hashshow(self):
-        print(self.Next)
-        print(self.Hashtable)
-
 
 def check(map, des):  # 校对当前局势是否有解
 
