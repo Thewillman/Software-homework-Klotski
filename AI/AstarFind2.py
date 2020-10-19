@@ -5,7 +5,6 @@ import base64
 import os
 import json
 
-
 changeId = [
     [-1, -1, 3, 1],
     [-1, 0, 4, 2],
@@ -20,10 +19,11 @@ changeId = [
 reverse = {'w': 's', 's': 'w', 'a': 'd', 'd': 'a'}
 change = {'w': 0, 'a': 1, 's': 2, 'd': 3}
 dir = ['w', 'a', 's', 'd']
-
-
+map_cost = {}# 确定最小估价值是否唯一
 x = [0, 0, 0, 1, 1, 1, 2, 2, 2]
 y = [0, 1, 2, 0, 1, 2, 0, 1, 2]
+bfs_flag = 0 # 标记位，确认最小估价值是否唯一
+
 # node类表示当前的局势以及操作序列还有移动步数
 class node(object):
     def __init__(self, num, step, zeroPos, des, operation, swap, flag):
@@ -38,15 +38,11 @@ class node(object):
         self.swap = swap
         self.flag = flag
 
-
     def __lt__(self, other):
         # 重载运算符，优先队列用得到
         if self.flag == other.flag:
-            if self.flag == 1:
-                if self.step == other.step:
-                    return self.cost < other.cost
-                else:
-                    return self.step < other.step
+            if bfs_flag == 1:
+                return self.step < other.step
             else:
                 return self.cost < other.cost
         else:
@@ -61,9 +57,9 @@ class node(object):
         c = 0
         for i in range(9):
             if self.num[i] != 0:
-                c += abs(int(i / 3) - x[self.num[i]-1]) + abs(int(i%3) - y[self.num[i]-1])
+                c += abs(int(i / 3) - x[self.num[i] - 1]) + abs(int(i % 3) - y[self.num[i] - 1])
             else:
-                c += abs(int(i / 3) - int(self.Init_zeroPos/3)) + abs(int(i%3) - self.Init_zeroPos%3)
+                c += abs(int(i / 3) - int(self.Init_zeroPos / 3)) + abs(int(i % 3) - self.Init_zeroPos % 3)
         return c + self.step
 
 
@@ -75,10 +71,11 @@ def CostCount(num, des, step):  # 估价函数
             break
     for i in range(9):
         if num[i] != 0:
-            c += abs(int(i / 3) - x[num[i]-1]) + abs(int(i % 3) - y[num[i]-1])
+            c += abs(int(i / 3) - x[num[i] - 1]) + abs(int(i % 3) - y[num[i] - 1])
         else:
             c += abs(int(i / 3) - int(k / 3)) + abs(int(i % 3) - int(k % 3))
     return c + step
+
 
 def check(map, des):  # 校对当前局势是否有解
 
@@ -95,23 +92,29 @@ def check(map, des):  # 校对当前局势是否有解
     return (cnt1 % 2) == (cnt2 % 2)
 
 
-def getRightChange(order, des, step):  # 获得到保证交换后局势有解且估价函数最小的自由交换
+def getRightChange(order, des, step,cost_swap):  # 获得到保证交换后局势有解且估价函数最小的自由交换
 
     cost = int(10000000)
     pos1 = 0
     pos2 = 0
     for i in range(0, len(order)):
-        for j in range(i+1, len(order)):
+        for j in range(i + 1, len(order)):
             order[i], order[j] = order[j], order[i]
-            #print(order)
+            # print(order)
             tempCost = CostCount(order, des, step)
-            #print(tempCost)
+            # print(tempCost)
             if tempCost < cost and check(order, des):
                 cost = tempCost
                 pos1 = i
                 pos2 = j
             order[i], order[j] = order[j], order[i]
-    return pos1, pos2
+    if cost_swap > cost:
+        cost_swap = cost
+    if cost not in map_cost:
+        map_cost[cost] = 1  #对于每次最佳交换我们都要记录他的估价值
+    else:
+        map_cost[cost] += 1
+    return pos1, pos2,cost_swap
 
 
 def check_list(dest, now):  # 校对当前局势是否为目标局势
@@ -119,13 +122,6 @@ def check_list(dest, now):  # 校对当前局势是否为目标局势
         if dest[i] != now[i]:
             return False
     return True
-
-
-def get_hash(temp):  # 获得哈希值
-    sum = 0
-    for i in range(9):
-        sum = sum * 13 + temp[i]
-    return sum
 
 
 def getOrder(temp, operation, delta, m, zeroPos):
@@ -143,11 +139,11 @@ def getOrder(temp, operation, delta, m, zeroPos):
 
 
 # A*算法搜索到达目标局势的最短步数操作
-def bfsHash(start, zeroPos, des, step, change_position):
+def bfsHash(start, zeroPos, des, step, change_position,cost_swap):
     # 之前采取的是哈希表，由于哈希表会存在冲突问题，然后采取O（n）的后移操作，在面对需要用到大量操作数的时候
     # 算法效率上就会大幅度降低，所以最后用回python自带的字典
     que = PriorityQueue()
-    # que2 = PriorityQueue()# 存入所有交换后估价函数最小且相同的点
+    que2 = PriorityQueue()
     first = node(start, 0, zeroPos, des, [], [], 0)
     que.put(first)
     mymap = {}
@@ -156,29 +152,16 @@ def bfsHash(start, zeroPos, des, step, change_position):
         s += str(i)
     mymap[s] = 1
     m = -1
-    costMap = {}# 对所有交换后的节点标注cost
-    minCost = 10000000# 最小的估价函数
+
     # 开始搜索
     while not que.empty():
         tempN = que.get()
         # print(list_to_string(tempN.operation))
         temp = tempN.num.copy()
         pos = tempN.zeroPos
-        #print(temp)
-        # strk = str(tempN.step) + ':' + str(temp) + ':' + str(tempN.operation) + ':' + str(tempN.swap)
-        # print(strk)
-
-        if check_list(des, temp):  # 若为目标局势且小于等于交换步数，则跳出
-            # print(des)
-            # print(temp)
-            # print(tempN.step)
-            # print(tempN.operation)
+        if check_list(des, temp):  # 若为目标局势则跳出
             return tempN
-        # print(tempN.step)
-        # print(tempN.operation)
-
         if len(tempN.operation) == step and tempN.flag == 0:  # 符合强制交换条件，开始执行变换操作
-            # print(2)
             temp = tempN.num.copy()
             if change_position[0] - 1 == pos:
                 pos = change_position[1] - 1
@@ -188,7 +171,7 @@ def bfsHash(start, zeroPos, des, step, change_position):
                 change_position[0] - 1]
             swap = []
             if not check(temp, des):
-                pos1, pos2 = getRightChange(temp, des, tempN.step)
+                pos1, pos2,cost_swap= getRightChange(temp, des, tempN.step,cost_swap)
                 if pos1 == pos:
                     pos = pos2
                 elif pos2 == pos:
@@ -196,7 +179,6 @@ def bfsHash(start, zeroPos, des, step, change_position):
                 temp[pos1], temp[pos2] = temp[pos2], temp[pos1]
                 swap.append(pos1 + 1)
                 swap.append(pos2 + 1)
-                # print(list)
             s = ""
             for i in temp:
                 s += str(i)
@@ -204,15 +186,19 @@ def bfsHash(start, zeroPos, des, step, change_position):
             operation = tempN.operation.copy()
             temp_step = tempN.step
             tempN = node(temp, temp_step, pos, des, operation, swap, 1)
-
+            if cost_swap > tempN.cost:
+                cost_swap = tempN.cost
+            if tempN.cost not in map_cost:
+                map_cost[tempN.cost] = 1  # 对于每次最佳交换我们都要记录他的估价值
+            else:
+                map_cost[tempN.cost] += 1
             if check_list(des, temp):  # 若交换后刚好为目标局势那就直接返回
-                # print(des)
-                # print(temp)
-                # print(tempN.step)
-                # print(tempN.operation)
                 operation.append(' ')  # 应测试组要求加上一个字符防止评测判断不到交换这一步
                 tempN = node(temp, temp_step, pos, des, operation, swap, 1)
                 return tempN
+            else:
+                que2.put(tempN)# 把所有交换后的节点都放在que2队列
+                continue
 
         # cnt用来对付无解情况，四个方向（cnt=4）都无路可走就为无解情况。
         # 如果这个情况出现在强制交换要求的步数前那么我们要添加“反复横跳”操作使得他达到强制交换要求的步数
@@ -222,12 +208,10 @@ def bfsHash(start, zeroPos, des, step, change_position):
                 pos = tempN.zeroPos
                 temp = tempN.num.copy()
                 temp[pos], temp[changeId[pos][i]] = temp[changeId[pos][i]], temp[pos]
-                # print(k)
                 s = ""
                 for j in temp:
                     s += str(j)
                 if s not in mymap:
-                    #    print(1)
                     mymap[s] = 1
                     operation = tempN.operation.copy()
                     operation.append(dir[i])
@@ -239,21 +223,51 @@ def bfsHash(start, zeroPos, des, step, change_position):
                     cnt += 1
             else:
                 cnt += 1
-        # print(cnt)
 
         if cnt == 4 and tempN.step < step:  # 进行“反复横跳”操作
             # 对于在强制交换前就发现无解的情况，我们直接处理成白块来回摆动的情况让他直接到达目标步数
             temp = tempN.num.copy()
             operation = tempN.operation.copy()
-            # print(len(operation))
             m = operation[len(operation) - 1]
             delta = step - len(operation)
             pos = tempN.zeroPos
             temp, operation, pos = getOrder(temp, operation, delta, m, pos)  # 添加“反复横跳”的操作序列
             tempM = node(temp, step, pos, des, operation, tempN.swap, tempN.flag)
-            # print(temp)
-            # print(operation)
             que.put(tempM)
+    if not que2.empty():
+        #print(1)
+        return bfsAfterSwap(que2,des,mymap,cost_swap)
+
+def bfsAfterSwap(que,des,mymap,cost_swap):
+    #print(1)
+    global bfs_flag
+    if map_cost.get(cost_swap) > 1:
+        bfs_flag = 1
+    print(bfs_flag)
+    #然后就是对着交换后的队列继续bfs
+    while not que.empty():
+        tempN = que.get()
+        # print(list_to_string(tempN.operation))
+        temp = tempN.num.copy()
+        pos = tempN.zeroPos
+        if check_list(des, temp):  # 若为目标局势则跳出
+            return tempN
+        for i in range(4):
+            if changeId[pos][i] != -1:
+                pos = tempN.zeroPos
+                temp = tempN.num.copy()
+                temp[pos], temp[changeId[pos][i]] = temp[changeId[pos][i]], temp[pos]
+                s = ""
+                for j in temp:
+                    s += str(j)
+                if s not in mymap:
+                    mymap[s] = 1
+                    operation = tempN.operation.copy()
+                    operation.append(dir[i])
+                    temp_step = tempN.step + 1
+                    temp_num = temp
+                    tempM = node(temp_num, temp_step, changeId[pos][i], des, operation, tempN.swap, tempN.flag)
+                    que.put(tempM)
 
 
 # 拿到我们的图以及其他要求信息，与之前预被处理成九宫格的36个正常字符图进行比对并标号
