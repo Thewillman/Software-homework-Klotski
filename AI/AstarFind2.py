@@ -400,7 +400,7 @@ if __name__ == '__main__':
             if order[k] == 0:
                 break
         # 开始搜索
-        b = bfsHash(order, k, dst, limit_step, change_position)
+        b = bfsHash(order, k, dst, limit_step, change_position,10000)
         f.write(str(b.step))
         f.write('\n')
         f.write(str(b.operation))
