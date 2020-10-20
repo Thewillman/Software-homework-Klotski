@@ -6,6 +6,12 @@
 
 
 
+## 代码分工
+
+我负责AI文件夹的代码（AI大比拼含算法在内的代码，含主程序AstarFind2.py以及AI大比拼的文件AIFighting.py和AIFightingSimple.py，单元测试代码SampleTest.py以及样例生成代码CreateSample.py）还有就是游戏原型设计的工程文件Klotski.rp（html可以去release看Prototype-design或者直接下载文件夹‘原型设计’）
+
+荣盛负责的是GUI文件夹的代码（也就是游戏原型设计实现部分）以及release上的GUI-show（游戏展示）以及GUI-game（华容道游戏打包成exe）
+
 ## 运行环境
 
 - Win64 or Linux
