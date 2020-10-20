@@ -18,13 +18,13 @@ class Direction(IntEnum):
 
 
 class AIshow(QMainWindow):
-    # 二维序列，0的行，0的列，几阶
+    # 二维序列，空白块的行，空白块的列，几阶，AI步数序列
     def __init__(self, blocks, zero_row, zero_column, degree, walklist):
         super().__init__()
         palette = QPalette()
         palette.setBrush(QPalette.Background, QBrush(QPixmap('bg.JPG')))
         self.setPalette(palette)
-
+        # 拷贝从父窗口传来的值，当改变时，不影响父窗口的值
         self.initblocks = copy.deepcopy(blocks)
         self.initzerorow = copy.deepcopy(zero_row)
         self.initzerocolumn = copy.deepcopy(zero_column)
@@ -63,6 +63,7 @@ class AIshow(QMainWindow):
         # self.edit.setEnabled(False)
         file = open('order.txt').read()
         label = QLabel(file, self)
+        # 为label设置css样式
         label.setStyleSheet('QLabel{font-size:22px}'
                             'QLabel{font-weight:bold}'
                             'QLabel{color:#000000}'
@@ -80,7 +81,7 @@ class AIshow(QMainWindow):
         mainframe = QWidget()
         mainframe.setLayout(hbox)
         self.setCentralWidget(mainframe)
-
+        # 工具栏
         self.toolbar1 = self.addToolBar('重新开始')
         new = QAction(QIcon('return.png'), '重新开始', self)
         self.toolbar1.addAction(new)
@@ -104,10 +105,10 @@ class AIshow(QMainWindow):
         self.toolbar4.addAction(new)
         self.toolbar4.actionTriggered.connect(self.back)
         self.toolbar4.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-
+    # 返回
     def back(self):
         self.hide()
-
+    # 重新开始
     def restart(self):
         self.block = copy.deepcopy(self.initblocks)
         self.zerorow = copy.deepcopy(self.initzerorow)
@@ -115,17 +116,16 @@ class AIshow(QMainWindow):
         self.updatePanel()
         self.toolbar3.setEnabled(True)
         self.toolbar2.setEnabled(True)
-
+    # 动画演示
     def AIshow(self):
         self.timer = QTimer()
-        self.timer.setInterval(500)
+        self.timer.setInterval(300)
         self.timer.start()
         self.timer.timeout.connect(self.walk)
         self.toolbar1.setEnabled(False)
         self.toolbar2.setEnabled(False)
         self.toolbar3.setEnabled(False)
-
-
+    # 逐步演示
     def buttonshow(self):
         self.toolbar1.setEnabled(False)
         self.toolbar2.setEnabled(False)
@@ -136,10 +136,10 @@ class AIshow(QMainWindow):
             self.walk_now = 0
             self.toolbar3.setEnabled(False)
             self.toolbar1.setEnabled(True)
-
-
+    # 控制白块按照AI序列移动
     def walk(self):
         self.move(self.walk_list[self.walk_now])
+        # 移动完要刷新面板
         self.updatePanel()
         self.walk_now = self.walk_now + 1
         if self.walk_now == len(self.walk_list):
@@ -170,6 +170,7 @@ class AIshow(QMainWindow):
                 self.block[self.zerorow][self.zerocolumn - 1] = 0
                 self.zerocolumn -= 1
 
+    # 刷新面板
     def updatePanel(self):
         for row in range(self.degree):
             for column in range(self.degree):
@@ -192,6 +193,7 @@ class AIshow(QMainWindow):
                 elif self.block[row][column] != row * self.degree + column + 1:
                     return False
 
+    # 监听关闭事件
     def closeEvent(self, event):
         reply = QMessageBox.question(self, '退出AI', '你确定退出AI吗？', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.Yes:

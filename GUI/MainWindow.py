@@ -21,9 +21,11 @@ class MainWindow(QWidget):
         label = QLabel('华容道', self)
         label.setStyleSheet('QLabel{font-size:50px}'
                             'QLabel{font-weight:bold}')
+        # 手动设置label位置
         label.move(170, 30)
         label.resize(150, 100)
 
+        # 手动设置每个button的位置
         start_button = QPushButton('简单游戏', self)
         start_button.move(200, 150)
         start_button.resize(100, 40)
@@ -71,7 +73,7 @@ class MainWindow(QWidget):
         self.setPalette(palette)
 
 
-
+    # 打开各个面板
     def callGame(self):
         self.game_window_choose = GameWindowChoose(self)
         self.game_window_choose.show()
@@ -97,6 +99,7 @@ class MainWindow(QWidget):
         self.rank_window.show()
 
     def callQuit(self):
+        # 退出游戏，直接关闭
         app = QApplication.instance()
         app.quit()
 

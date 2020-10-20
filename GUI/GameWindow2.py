@@ -17,16 +17,18 @@ class Direction(IntEnum):
     LEFT = 2
     RIGHT = 3
 
-
+# 简单游戏4X4
 class GameWindow2(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        # 设置背景图片
         palette = QPalette()
         palette.setBrush(QPalette.Background, QBrush(QPixmap('bg.JPG')))
         self.setPalette(palette)
-
+        # 状态数组
         self.blocks = []
+        # 空白快位置
         self.zero_row = 0
         self.zero_column = 0
         self.gltMain = QGridLayout()
@@ -53,6 +55,7 @@ class GameWindow2(QMainWindow):
         # self.setStyleSheet("background-color:gray;")
         # self.show()
 
+        # 工具栏
         toolbar1 = self.addToolBar('更换题目')
         new = QAction(QIcon('exchangerate.png'), '更换题目', self)
         toolbar1.addAction(new)
@@ -71,11 +74,13 @@ class GameWindow2(QMainWindow):
         toolbar3.actionTriggered.connect(self.back)
         toolbar3.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
+    # 返回
     def back(self):
         self.hide()
         self.father = MainWindow.MainWindow()
         self.father.show()
 
+    # 重新开始
     def restart(self):
         self.blocks = []
         self.zero_row = 0
@@ -156,6 +161,7 @@ class GameWindow2(QMainWindow):
                 self.blocks[self.zero_row][self.zero_column - 1] = 0
                 self.zero_column -= 1
 
+    # 刷新面板
     def updatePanel(self):
         for row in range(4):
             for column in range(4):

@@ -14,7 +14,7 @@ class Direction(IntEnum):
     LEFT = 2
     RIGHT = 3
 
-
+# 简单游戏5X5，和简单游戏4X4功能相似
 class GameWindow3(QMainWindow):
 
     def __init__(self):

@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import *
 import MainWindow
 
 
+# AI挑战排行榜
 class RankWindow2(QMainWindow):
     def __init__(self):
         super().__init__()

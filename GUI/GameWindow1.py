@@ -11,24 +11,28 @@ import GameWindowChoose
 import MainWindow
 
 
+# 方向
 class Direction(IntEnum):
     UP = 0
     DOWN = 1
     LEFT = 2
     RIGHT = 3
 
-
+# 简单游戏3X3游戏
 class GameWindow1(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        # 设置背景图片
         palette = QPalette()
         palette.setBrush(QPalette.Background, QBrush(QPixmap('bg.JPG')))
         self.setPalette(palette)
-
+        # 状态数组
         self.blocks = []
+        # 空白格位置
         self.zero_row = 0
         self.zero_column = 0
+        # 数字块网格布局
         self.gltMain = QGridLayout()
         self.initUI()
         # self.button1 = QPushButton('AI演示')
@@ -53,6 +57,7 @@ class GameWindow1(QMainWindow):
         # self.setStyleSheet("background-color:gray;")
         # self.show()
 
+        # 工具栏
         toolbar1 = self.addToolBar('更换题目')
         new = QAction(QIcon('exchangerate.png'), '更换题目', self)
         toolbar1.addAction(new)
@@ -71,19 +76,22 @@ class GameWindow1(QMainWindow):
         toolbar3.actionTriggered.connect(self.back)
         toolbar3.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
+    # 返回功能
     def back(self):
         self.hide()
         self.father = MainWindow.MainWindow()
         self.father.show()
 
+    # 重新开始功能
     def restart(self):
         self.blocks = []
         self.zero_row = 0
         self.zero_column = 0
         self.onInit()
 
-
+    # AI演示功能
     def AIshow(self):
+        # 将状态数组、空白快位置拷贝到temp变量
         temp1 = copy.deepcopy(self.blocks)
         temp2 = copy.deepcopy(self.zero_row)
         temp3 = copy.deepcopy(self.zero_column)
@@ -94,6 +102,7 @@ class GameWindow1(QMainWindow):
         print(temp1)
         print(temp2)
         print(temp3)
+        # 调用A*算法
         walklist = Astar.bfsHash(list, temp2, temp3, 3)
         print('walklist:', walklist)
         temp4 = copy.deepcopy(walklist)
@@ -168,6 +177,7 @@ class GameWindow1(QMainWindow):
                 self.blocks[self.zero_row][self.zero_column - 1] = 0
                 self.zero_column -= 1
 
+    # 刷新面板
     def updatePanel(self):
         for row in range(3):
             for column in range(3):
@@ -191,7 +201,7 @@ class GameWindow1(QMainWindow):
 
         return True
 
-
+    # 监听关闭事件
     def closeEvent(self, event):
         reply = QMessageBox.question(self, '退出游戏', '你确定退出游戏吗？', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.Yes:

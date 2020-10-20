@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import *
 from MainWindow import MainWindow
 
 
+# 游戏入口
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     main = MainWindow()

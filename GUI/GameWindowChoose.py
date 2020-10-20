@@ -7,6 +7,7 @@ from GameWindow2 import GameWindow2
 from GameWindow3 import GameWindow3
 
 
+# 游戏难度选择
 class GameWindowChoose(QDialog):
     def __init__(self, GameWindow):
         super().__init__()
@@ -18,7 +19,9 @@ class GameWindowChoose(QDialog):
         self.setWindowModality(Qt.ApplicationModal)
         self.initUI()
 
+    # 初始化
     def initUI(self):
+        # 设置水平布局
         layout = QHBoxLayout()
 
         self.button1 = QPushButton('3X3')
@@ -29,13 +32,14 @@ class GameWindowChoose(QDialog):
 
         self.button3 = QPushButton('5X5')
         self.button3.clicked.connect(self.choose5X5)
-
+        # 将button加入布局
         layout.addWidget(self.button1)
         layout.addWidget(self.button2)
         layout.addWidget(self.button3)
         self.setLayout(layout)
         self.close()
 
+    # 打开3X3游戏面板，下同
     def choose3X3(self):
         self.game_window = GameWindow1()
         self.window.hide()

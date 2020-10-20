@@ -18,6 +18,7 @@ class Direction(IntEnum):
     LEFT = 2
     RIGHT = 3
 
+# AI挑战界面
 class AItry(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -46,10 +47,13 @@ class AItry(QMainWindow):
 
         # self.time_label = TimeLabel(self)
         # self.id = self.time_label.startTimer(1000)
+
+        # 设置用时的定时器
         self.time_label = TimeLabel()
         self.timer = QTimer()
         self.timer.setInterval(1000)
         self.timer.start()
+        # 时间间隔结束后增加1秒时间
         self.timer.timeout.connect(self.time_label.addtime)
         self.form1.addRow('<h1>用时：<h1/>', self.time_label)
 
@@ -105,19 +109,19 @@ class AItry(QMainWindow):
         toolbar3.addAction(new)
         toolbar3.actionTriggered.connect(self.back)
         toolbar3.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-
+    # 返回
     def back(self):
         self.hide()
         self.father = MainWindow.MainWindow()
         self.father.show()
-
+    # 更换题目
     def restart(self):
         self.blocks = []
         self.zero_row = 0
         self.zero_column = 0
         self.onInit()
         self.time_label.settime()
-
+    # 重新开始
     def again(self):
         self.blocks = copy.deepcopy(self.copyblocks)
         self.zero_row = copy.deepcopy(self.copyrow)
@@ -126,8 +130,7 @@ class AItry(QMainWindow):
         self.time_label.settime()
         self.updatePanel()
 
-
-
+    # 初始化布局
     def onInit(self):
         self.numbers = list(range(1, 9))
         self.numbers.append(0)
@@ -151,6 +154,7 @@ class AItry(QMainWindow):
         self.copycolumn = copy.deepcopy(self.zero_column)
         self.updatePanel()
 
+    # 监听键盘按键事件
     def keyPressEvent(self, event):
         key = event.key()
         if (key == Qt.Key_Up or key == Qt.Key_W):
@@ -163,6 +167,7 @@ class AItry(QMainWindow):
             self.move(Direction.RIGHT)
         self.updatePanel()
         if self.checkResult():
+            # 游戏完成时，定时器暂停
             self.timer.stop()
             time = QDateTime.currentDateTime()
             timeDisplay = time.toString('yyyy-MM-dd hh:mm:ss dddd')
@@ -170,6 +175,7 @@ class AItry(QMainWindow):
             string = list[0]
             string = string + ' ' + str(self.step_label.getstep() - int(self.ai_label.text())) + ' ' + str(self.time_label.gettime()) + '\n'
             print(string)
+            # 记录排行榜
             flag = self.record(string)
             if flag:
                 if QMessageBox.Ok == QMessageBox.information(
@@ -189,6 +195,7 @@ class AItry(QMainWindow):
                     self.zero_column = 0
                     self.time_label.settime()
                     self.onInit()
+            # 定时器重新启动
             self.timer.start()
 
     def move(self, direction):
@@ -218,14 +225,14 @@ class AItry(QMainWindow):
                 self.zero_column -= 1
 
 
-
+    # 刷新面板
     def updatePanel(self):
         for row in range(3):
             for column in range(3):
                 self.gltMain.addWidget(Block(self.blocks[row][column]), row, column)
         self.widght5.setLayout(self.gltMain)
 
-
+    # 检查是否完成
     def checkResult(self):
         # 先检测最右下角是否为0
         if self.blocks[2][2] != 0:
@@ -240,6 +247,7 @@ class AItry(QMainWindow):
                 elif self.blocks[row][column] != row * 3 + column + 1:
                     return False
 
+    # 得到AI步数
     def getai(self):
         temp1 = copy.deepcopy(self.blocks)
         temp2 = copy.deepcopy(self.zero_row)
@@ -248,9 +256,11 @@ class AItry(QMainWindow):
         for i in range(3):
             for j in range(3):
                 list.append(temp1[i][j])
+        # 调用A*算法
         walklist = Astar.bfsHash(list, temp2, temp3, 3)
         return len(walklist)
 
+    # 记录排行榜
     def record(self, string):
         file = open('airank.txt')
         rank = []
@@ -264,6 +274,7 @@ class AItry(QMainWindow):
         for item in rank:
             item = item.replace('\n', '')
             temp.append(item)
+        # 设置优先队列，每次从优先队列的前十个写入txt
         que = PriorityQueue()
         for item in temp:
             list = item.split(' ')
@@ -282,6 +293,7 @@ class AItry(QMainWindow):
                 flag = 1
             string = string + top.date + ' ' + str(top.num) + ' ' + str(top.time) + '\n'
         with open('airank.txt', 'a') as file_handle:
+            # 清空txt内容
             file_handle.truncate(0)
             file_handle.write(string)
             file_handle.close()
@@ -294,7 +306,7 @@ class AItry(QMainWindow):
         else:
             event.ignore()
 
-
+# 时间label
 class TimeLabel(QLabel):
     def __init__(self):
         super().__init__()
@@ -318,7 +330,7 @@ class TimeLabel(QLabel):
         a = int(self.text()) + 20
         self.setText(str(a))
 
-
+# 步数label
 class StepLabel(QLabel):
     def __init__(self):
         super().__init__()
@@ -338,6 +350,7 @@ class StepLabel(QLabel):
     def resetstep(self):
         self.setText('0')
 
+# AI步数label
 class AILabel(QLabel):
     def __init__(self, num):
         super().__init__()
@@ -380,13 +393,13 @@ class Block(QLabel):
             self.setStyleSheet("background-color:black;border-radius:10px;")
             self.setText(str(self.number))
 
-
+# 放入优先队列的节点
 class node(object):
     def __init__(self, date, num, time):
         self.date = date
         self.num = num
         self.time = time
-
+    # 先考虑相差步数，在考虑时间
     def __lt__(self, other):
         if self.num == other.num:
             return self.time < other.time

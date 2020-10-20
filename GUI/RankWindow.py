@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import *
 import MainWindow
 
 
+# 通关挑战排行榜
 class RankWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -20,6 +21,7 @@ class RankWindow(QMainWindow):
 
     def initUI(self):
         layout = QHBoxLayout()
+        # 表格布局
         tablewidget = QTableWidget()
         tablewidget.setRowCount(10)
         tablewidget.setColumnCount(4)
@@ -42,6 +44,7 @@ class RankWindow(QMainWindow):
             temp.setTextAlignment(Qt.AlignCenter)
             tablewidget.setItem(i, 0, temp)
             for j in range(3):
+                # 对每一个位置，加入表格布局item
                 temp = QTableWidgetItem(list[j])
                 temp.setTextAlignment(Qt.AlignCenter)
                 tablewidget.setItem(i, j + 1, temp)

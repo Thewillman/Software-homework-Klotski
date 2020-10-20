@@ -18,6 +18,7 @@ class Direction(IntEnum):
     LEFT = 2
     RIGHT = 3
 
+# 通关挑战界面
 class TryWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -47,6 +48,8 @@ class TryWindow(QMainWindow):
 
         # self.time_label = TimeLabel(self)
         # self.id = self.time_label.startTimer(1000)
+
+        # 用时定时器
         self.time_label = TimeLabel()
         self.timer = QTimer()
         self.timer.setInterval(1000)
@@ -112,6 +115,7 @@ class TryWindow(QMainWindow):
     #     if reply == QMessageBox.Yes:
     #         QCoreApplication.instance().quit()
 
+    # 监听关闭事件
     def closeEvent(self, event):
         time = QDateTime.currentDateTime()
         timeDisplay = time.toString('yyyy-MM-dd hh:mm:ss dddd')
@@ -132,7 +136,7 @@ class TryWindow(QMainWindow):
                 event.accept()
             else:
                 event.ignore()
-
+    # AI演示
     def AIshow(self):
         if self.degree == 3:
             # self.toolbar2.setEnabled(True)
@@ -154,7 +158,7 @@ class TryWindow(QMainWindow):
             # if self.flag == 0:
             #     self.time_label.restart()
 
-
+    # 记录排行榜
     def reocrd(self, string):
         file = open('rank.txt')
         rank = []
@@ -354,6 +358,7 @@ class TimeLabel(QLabel):
         a = int(self.text()) + 20
         self.setText(str(a))
 
+# 通关数label
 class StepLabel(QLabel):
     def __init__(self, num):
         super().__init__()

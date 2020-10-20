@@ -4,6 +4,7 @@ import copy
 import math
 import time
 
+# 设置全局变量
 sdes1 = '123456780'
 des1 = [1, 2, 3, 4, 5, 6, 7, 8, 0]
 mymap = {}
@@ -44,6 +45,7 @@ class node(object):
     def __lt__(self, other):
         return self.cost < other.cost
 
+    # 估价函数1，不在位的数
     # def setCost(self):
     #     c = 0
     #     for i in range(self.degree * self.degree):
@@ -51,6 +53,7 @@ class node(object):
     #             c = c + 1
     #     return c + self.step
 
+    # 估价函数2，每个块到目标状态的步数差
     def setCost(self):
         c = 0
         for i in range(self.degree * self.degree):
@@ -66,7 +69,7 @@ class node(object):
                 c = c + res
         return c + self.step
 
-
+# 将状态数组的字符串格式转为数组
 def string_to_list(k):
     list = re.findall('\d', k)
     temp = []
@@ -74,6 +77,7 @@ def string_to_list(k):
         temp.append(int(item))
     return temp
 
+# 将状态数组转为字符串格式，为了放入字典中
 def list_to_string(list):
     result = ''
     for item in list:
@@ -92,6 +96,7 @@ def bfsHash(start1, zero_row1, zero_column1, degree1):
     zeroPos = zero_row * degree + zero_column
     first = node(start, 0, zeroPos, '', degree)
     que = queue.PriorityQueue()
+    # 由于设置了全局变量，所以每次调用都要把队列清空，字典清空
     while not que.empty():
         que.get()
     mymap.clear()
@@ -105,10 +110,12 @@ def bfsHash(start1, zero_row1, zero_column1, degree1):
             # print(tempN.order)
             temp = tempN.num
             pos = tempN.zeroPos
+            # 上下左右移动
             for i in range(4):
                 if changeId1[pos][i] != -1:
                     temp[pos], temp[changeId1[pos][i]] = temp[changeId1[pos][i]], temp[pos]
                     k = list_to_string(temp)
+                    # 到达目标状态，返回结果
                     if k == sdes1:
                         write_order(tempN.order + wasd[i])
                         return change(tempN.order + wasd[i])
@@ -118,7 +125,7 @@ def bfsHash(start1, zero_row1, zero_column1, degree1):
                         que.put(tempM)
                         mymap[k] = 1
                     temp[pos], temp[changeId1[pos][i]] = temp[changeId1[pos][i]], temp[pos]
-
+# 将AI序列写入txt文件中
 def write_order(string):
     list = re.findall('[a-z]', string)
     temp = ''
@@ -136,7 +143,9 @@ def write_order(string):
         file_handle.write(temp)
         file_handle.close()
 
+# 改变AI序列字符串形式为数字形式
 def change(string):
+    # 正则匹配
     list = re.findall('[a-z]', string)
     walk = []
     for item in list:
@@ -158,4 +167,5 @@ def change(string):
 # time2 = time.time()
 # print('time:', time2 - time1)
 # print(walklist)
+# print(len(walklist))
 
